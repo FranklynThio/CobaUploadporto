@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franklyn Thioatmadjaya - Software Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom scrollbar for a cleaner look (Light Theme) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f4f8; } /* Light track */
+        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; } /* indigo-600 */
+        ::-webkit-scrollbar-thumb:hover { background: #3730a3; } /* indigo-800 */
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            /* Subtle background color */
+            background-color: #f8fafc; /* gray-50 */
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            color: #1f2937; /* dark text */
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50%;
+            height: 4px;
+            background-color: #6366f1; /* indigo-500 */
+            border-radius: 2px;
+        }
+
+        /* Animation class for Intersection Observer */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Card Hover Effect */
+        .hover-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3), 0 4px 6px -2px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Scroll to top button style */
+        #scroll-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            padding: 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        #scroll-to-top:hover {
+            background-color: #3730a3; /* indigo-800 */
+            transform: scale(1.1);
+        }
+        
+        /* Modal for Project Detail Gallery */
+        .project-modal-content {
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #e0e7ff; /* indigo-100 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4f46e5; /* indigo-600 */
+            font-weight: 600;
+            border-radius: 0.5rem;
+        }
+        .image-placeholder-modal {
+            background-color: #f3f4f6; /* gray-100 */
+            padding: 1rem;
+            border: 1px dashed #9ca3af; /* gray-400 */
+        }
+        /* Custom image styling for the gallery modal */
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* New: Cover image style */
+        .project-cover {
+            width: 100%;
+            height: 200px; /* Consistent height for all covers */
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .project-cover:hover {
+            transform: scale(1.02);
+        }
+        /* Style for the actual profile photo */
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body class="text-gray-900 antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-xl font-extrabold text-indigo-600 tracking-wider hover:text-indigo-800 transition duration-300">FRANKLYN THIO</a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+                <a href="#profile" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Profile</a>
+                <a href="#education" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Education</a>
+                <a href="#experience" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Experience</a>
+                <a href="#projects" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Projects</a>
+                <a href="#skills" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Skills</a>
+            </nav>
+            <!-- Mobile Menu Button (Lucide Menu Icon) -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition" onclick="toggleMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <a href="#profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Profile</a>
+            <a href="#education" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Education</a>
+            <a href="#experience" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Experience</a>
+            <a href="#projects" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Projects</a>
+            <a href="#skills" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Skills</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- Hero Section -->
+        <section id="hero" class="pt-16 pb-24 text-center">
+            <!-- PROFILE PHOTO (Changed to use assets/profile.jpg and increased size) -->
+            <div class="w-48 h-48 mx-auto rounded-full bg-indigo-500 flex items-center justify-center mb-6 shadow-2xl transition duration-500 ease-in-out transform hover:scale-105">
+                <img src="assets/profile.jpg" 
+                     alt="Franklyn Thioatmadjaya Profile Photo" 
+                     class="profile-photo rounded-full"
+                     onerror="this.onerror=null; this.src='https://placehold.co/192x192/e0e7ff/6366f1?text=PROFILE';" 
+                />
+            </div>
+            <!-- End Profile Photo -->
+
+            <h1 class="text-6xl sm:text-8xl font-extrabold tracking-tighter text-gray-800 mb-4">
+                FRANKLYN THIOATMADJAYA
+            </h1>
+            <p class="text-2xl sm:text-3xl text-indigo-600 font-medium">
+                Informatics Student | UI/UX & Front-End Enthusiast
+            </p>
+            
+            <!-- CTAs: Download CV & View Projects -->
+            <div class="mt-12 flex justify-center space-x-4">
+                <button onclick="showDownloadPlaceholder()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-indigo-500/50 transition duration-300 transform hover:scale-105 flex items-center">
+                    <i data-lucide="download" class="w-5 h-5 mr-2"></i> Download CV (PDF)
+                </button>
+                <a href="#projects" class="bg-white border border-indigo-500 text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center">
+                    View Projects <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                </a>
+            </div>
+
+            <!-- Contact Info & Socials (UPDATED: Displaying email addresses directly) -->
+            <div class="mt-8 flex justify-center flex-wrap gap-x-8 gap-y-4 text-gray-600 text-sm">
+                
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/6281218198477" target="_blank" class="flex items-center hover:text-indigo-600 transition font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 448 512" fill="#25D366"><path d="M380.9 97.4C339 55.4 283.6 32 225.6 32c-97.4 0-176 78.6-176 176 0 35.8 10.3 71.3 30.6 102.7L32 480l106.8-35.3c31.3 17.5 66.8 26.6 101.4 26.6h1.2c97.4 0 176-78.6 176-176 0-42.3-15-83.3-44.1-114.7zM225.6 448c-29 0-57.8-7.8-82.6-22.5l-47.9-15.9 15.9-47.9c-14.7-25.1-22.5-53.8-22.5-82.6 0-79.6 64.6-144.2 144.2-144.2 38.6 0 75 15.1 102.5 42.6s42.6 63.9 42.6 102.5c0 79.6-64.6 144.2-144.2 144.2zM337.3 283.5c-4.4-2.2-26-12.8-29.9-14.2s-6.9-2.2-9.9 2.2c-3 4.4-11.4 14.2-14 17.1-2.6 2.6-5.2 3-9.7.5-12.8-6.8-23.6-14.7-33.8-25.4-8-8.2-13.4-17.7-17.9-27.9-4.7-10.4-.2-15.6 4.1-19.1 3.5-3 7.5-6.5 9.7-9.7 2.2-3 2.2-5.1 1.5-8.1-1.2-3-4.4-10.4-6.4-14.7-2-4.4-4-3.7-5.2-3.7-2.2-.3-4.7-.3-7.2-.3-2.6 0-6.9 1.1-10.6 5.2-3.8 4.1-14.5 14.1-17.7 17.9-3.3 3.9-6.3 8-7.8 12.8-2 6.5-1.9 13.9.2 20.3 3.6 10.8 10.4 20.4 17.9 28.5 7.6 8.3 16.5 15.6 26.2 21.6 8.7 5.4 17.7 9.8 27.5 13.5 10.2 3.8 17.2 3.4 25.2 2.9 8.1-.5 25.5-10.3 29-20.1 3.5-9.8 3.5-18.3 2.5-20.1-1-1.7-3.9-2.7-8.3-4.9z"/></svg> 
+                    WhatsApp (0812-1819-8477)
+                </a>
+                
+                <!-- Email Link 1 (BINUS) - Displaying directly -->
+                <a href="mailto:franklyn.thioatamadjaya@binus.ac.id" class="flex items-center hover:text-indigo-600 transition font-medium">
+                    <i data-lucide="mail" class="w-4 h-4 mr-2 text-indigo-500"></i>franklyn.thioatamadjaya@binus.ac.id
+                </a>
+
+                <!-- Email Link 2 (GMAIL) - Displaying directly -->
+                <a href="mailto:thiofranklyn@gmail.com" class="flex items-center hover:text-indigo-600 transition font-medium">
+                    <i data-lucide="mail" class="w-4 h-4 mr-2 text-indigo-500"></i>thiofranklyn@gmail.com
+                </a>
+
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/franklyn-thioatmadjaya-a80206385/" target="_blank" class="flex items-center hover:text-indigo-600 transition">
+                    <i data-lucide="linkedin" class="w-4 h-4 mr-2 text-indigo-500"></i>LinkedIn Profile
+                </a>
+                <span class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-indigo-500"></i>Karawaci, Tangerang</span>
+            </div>
+            <!-- End Contact Info & Socials -->
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="py-12 fade-in-section">
+            <h2 class="section-title text-4xl font-bold">Profile</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 hover-card transition duration-300">
+                <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                    An Informatics student at Bina Nusantara University, expected to graduate in 2027. I am passionate
+                    about UI/UX Design, Front-End Development, Application Developer and Mobile Application Development.
+                    I continuously develop skills to design and build interactive, user-friendly interfaces based
+                    on modern design principles. Known for being a responsible, disciplined individual with strong
+                    time management skills. Highly motivated to keep learning, collaborate effectively, and remain
+                    open to feedback and constructive criticism to achieve optimal results.
+                </p>
+                <!-- AI feature button removed -->
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="py-12 fade-in-section">
+            <h2 class="section-title text-4xl font-bold">Education</h2>
+            <div class="space-y-6">
+                <!-- BINUS University -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-xl font-semibold text-indigo-600">Bina Nusantara University</h3>
+                        <span class="text-sm text-gray-500 font-mono bg-indigo-100 px-3 py-1 rounded-full">2023 - Present</span>
+                    </div>
+                    <p class="text-gray-700 mt-1 font-medium">Undergraduate Computer Science Major</p>
+                    <p class="text-gray-500 text-sm mt-2 flex items-center"><i data-lucide="cpu" class="w-4 h-4 mr-2 text-indigo-400"></i>C O M P U T E R S C I E N C E</p>
+                </div>
+                <!-- SMA Santo Thomas Aquino -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-xl font-semibold text-indigo-600">SMA Santo Thomas Aquino</h3>
+                        <span class="text-sm text-gray-500 font-mono bg-indigo-100 px-3 py-1 rounded-full">2020 - 2023</span>
+                    </div>
+                    <p class="text-gray-700 mt-1 font-medium">Science Stream (Ilmu Pengetahuan Alam)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section (Non-Project/Organizational) -->
+        <section id="experience" class="py-12 fade-in-section">
+            <h2 class="section-title text-4xl font-bold">Organizational & Mentorship Experience</h2>
+            <div class="space-y-6">
+                
+                <!-- Scholarship Mentor -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-semibold text-indigo-600">Scholarship Mentor</h3>
+                        <span class="text-sm text-gray-500 font-mono">2024 - 2025 · 6 months</span>
+                    </div>
+                    <p class="text-gray-700 font-medium flex items-center"><i data-lucide="building-2" class="w-4 h-4 mr-2 text-indigo-400"></i>BINUS University · Contract (Hybrid)</p>
+                    <p class="text-gray-600 text-sm mt-2">
+                        As a Scholarship Mentor in the Computer Science department during my 4th semester, I guided two mentees. We studied and discussed course materials such as Agile Software Development, Software Engineering, and Code Reengineering in a hybrid setting. My goal was to deepen their understanding, motivate them, and foster a positive learning environment.
+                    </p>
+                </div>
+
+                <!-- Panitia Malam Keakraban KMBD 2024 (Perkab) -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-semibold text-indigo-600">KMBD 2024 Active Member & Get-Together Night Committee (Perkab)</h3>
+                        <span class="text-sm text-gray-500 font-mono">Nov 2023 - Nov 2024 · 1 Year</span>
+                    </div>
+                    <p class="text-gray-700 font-medium flex items-center"><i data-lucide="users" class="w-4 h-4 mr-2 text-indigo-400"></i>Keluarga Mahasiswa Buddhis Dhammavaddhana (Hybrid)</p>
+                    <p class="text-gray-600 text-sm mt-2">
+                        I served as a committee member for the 2024 KMBD get-together night, collaborating with new and long-standing members. The event involved staying in a villa with participants, focusing on networking and strengthening the brotherhood among fellow KMBD members.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-12 fade-in-section">
+            <h2 class="section-title text-4xl font-bold">Featured Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- 1. Project Card Template (Other Projects) - GITHUB ONLY -->
+                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200 bg-indigo-50"
+                     data-project-title="Other Projects & Repositories"
+                     data-project-id="other-github"
+                     data-project-description="Check out my GitHub profile for other ongoing projects, personal coding challenges, and older repositories not listed here."
+                     data-project-links='[{"label": "Franklyn'+"'s"+` GitHub Profile", "url": "https://github.com/FranklynThio"}]'>
+                    
+                    <!-- COVER IMAGE SECTION: Default Link -->
+                    <a href="https://github.com/FranklynThio" target="_blank" class="image-placeholder cursor-pointer bg-indigo-200 text-indigo-700 h-full flex flex-col justify-center p-6 text-center hover:bg-indigo-300 transition duration-300">
+                        <i data-lucide="github" class="w-12 h-12 mx-auto mb-3"></i>
+                        <span class="text-xl font-bold">View More on GitHub</span>
+                        <p class="text-sm mt-2 text-indigo-600">Click to visit my full repository list.</p>
+                    </a>
+
+                    <div class="p-6 hidden">
+                        <!-- Content hidden as primary action is the GitHub link on the image-placeholder -->
+                    </div>
+                </div>
+
+                <!-- 2. Project Card Template (Aria) - With Gallery -->
+                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
+                     data-project-title="Aria Music Platform"
+                     data-project-id="aria"
+                     data-project-description="Music platform that allows users to manually separate and adjust instruments and vocals. (Group Project as Backend Developer)"
+                     data-project-links='[{"label": "GitHub Repository", "url": "https://github.com/ouewen/Aria"}]'>
+                    
+                    <!-- COVER IMAGE SECTION: Aria_1.png -->
+                    <img src="assets/aria_1.png" alt="Aria Music Platform Cover" class="project-cover rounded-t-xl" 
+                         onclick="openProjectModal(this)"
+                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=Aria+Cover';" 
+                    />
+
+                    <div class="p-6">
+                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2025</span>
+                        <h3 class="text-xl font-bold text-indigo-700 mb-2">Aria Music Platform</h3>
+                        <p class="text-gray-600 text-sm mb-4">Music platform that allows users to manually separate and adjust instruments and vocals.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
+                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Group Project</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Backend Developer</span>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2" id="links-Aria Music Platform">
+                            <a href="https://github.com/ouewen/Aria" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="github" class="w-4 h-4 mr-1"></i> GitHub Repository
+                            </a>
+                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Project Card Template (DiamondCut Motors UI/UX Figma) - With Gallery -->
+                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
+                     data-project-title="DiamondCut Motors Showroom (UI/UX)"
+                     data-project-id="diamondcut-ui"
+                     data-project-description="Website design for a Sports Car Showroom, offering various luxury sports cars. (Individual Project as UI/UX Developer - Figma Prototype)"
+                     data-project-links='[{"label": "Figma Prototype", "url": "https://www.figma.com/proto/YcXCH8KgSIzqKk7w3AWXy?node-id=1-3&starting-point-node-id=1%3A3&t=BVFoOwOQt0UMmmvS-1"}]'>
+
+                    <!-- COVER IMAGE SECTION: DiamondCut_Motors_Showroom1.png -->
+                    <img src="assets/DiamondCut_Motors_Showroom1.png" alt="DiamondCut Motors UI/UX Cover" class="project-cover rounded-t-xl" 
+                         onclick="openProjectModal(this)"
+                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=DiamondCut+UI+Cover';" 
+                    />
+                    
+                    <div class="p-6">
+                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2024</span>
+                        <h3 class="text-xl font-bold text-indigo-700 mb-2">DiamondCut Motors Showroom (UI/UX)</h3>
+                        <p class="text-gray-600 text-sm mb-4">Website design for a Sports Car Showroom, offering various luxury sports cars.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
+                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Individual Project</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">UI/UX Developer</span>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2" id="links-DiamondCut Motors Showroom">
+                            <a href="https://www.figma.com/proto/YcXCH8KgSIzqKk7w3AWXy?node-id=1-3&starting-point-node-id=1%3A3&t=BVFoOwOQt0UMmmvS-1" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="figma" class="w-4 h-4 mr-1"></i> Figma Prototype
+                            </a>
+                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 4. Project Card (DiamondCut Motors Implementation CSS/JS) - With Gallery -->
+                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
+                     data-project-title="DiamondCut Motors (Implementation)"
+                     data-project-id="diamondcut-dev"
+                     data-project-description="Implementation of the showroom design using HTML, CSS, and JavaScript, focusing on Front-End development and interaction."
+                     data-project-links='[{"label": "GitHub Profile", "url": "https://github.com/FranklynThio/DiamondCutMotors"}]'>
+
+                    <!-- COVER IMAGE SECTION: DiamondCutCSS1.png -->
+                    <img src="assets/DiamondCutCSS1.png" alt="DiamondCut Motors Implementation Cover" class="project-cover rounded-t-xl" 
+                         onclick="openProjectModal(this)"
+                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=DiamondCut+Dev+Cover';" 
+                    />
+
+                    <div class="p-6">
+                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2024</span>
+                        <h3 class="text-xl font-bold text-indigo-700 mb-2">DiamondCut Motors (Implementation)</h3>
+                        <p class="text-gray-600 text-sm mb-4">Implementation of the car showroom website using web technologies (CSS/JS).</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
+                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Individual Project</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Front-End Development</span>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2" id="links-DiamondCut Motors Implementation">
+                            <a href="https://github.com/FranklynThio/DiamondCutMotors" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="github" class="w-4 h-4 mr-1"></i> View on GitHub
+                            </a>
+                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Project Card Template (FitTrack Calorie Tracker) - With Gallery -->
+                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
+                     data-project-title="FitTrack Calorie Tracker (AI)"
+                     data-project-id="fittrack"
+                     data-project-description="AI function that calculates food calories based on a database, allowing users to upload photos. (Group Project as Backend Developer)"
+                     data-project-links='[{"label": "Documentation", "url": "https://mini-brass-c1b.notion.site/FitTrack-Calorie-Tracker-1604ad8a189e8020845ef0182ee47fe5"}]'>
+                    
+                    <!-- COVER IMAGE SECTION: Fittrack.png -->
+                    <img src="assets/Fittrack.png" alt="FitTrack Calorie Tracker Cover" class="project-cover rounded-t-xl" 
+                         onclick="openProjectModal(this)"
+                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=FitTrack+Cover';" 
+                    />
+
+                    <div class="p-6">
+                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2024</span>
+                        <h3 class="text-xl font-bold text-indigo-700 mb-2">FitTrack Calorie Tracker (AI)</h3>
+                        <p class="text-gray-600 text-sm mb-4">AI function that calculates food calories based on a database, allowing users to upload photos.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
+                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Group Project</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Backend Developer</span>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2" id="links-FitTrack Calorie Tracker (AI)">
+                            <a href="https://mini-brass-c1b.notion.site/FitTrack-Calorie-Tracker-1604ad8a189e8020845ef0182ee47fe5" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Documentation
+                            </a>
+                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Project Card Template (File Processing) - With Gallery -->
+                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
+                     data-project-title="File Data Processing"
+                     data-project-id="fileprocessing"
+                     data-project-description="A project focused on reading data from a file and implementing its processing logic in code. (Group Project as Backend Developer)"
+                     data-project-links='[{"label": "GitHub Profile", "url": "https://github.com/FranklynThio/FileProcessing"}]'>
+                    
+                    <!-- COVER IMAGE SECTION: FileProcessing.png -->
+                    <img src="assets/FileProcessing.png" alt="File Data Processing Cover" class="project-cover rounded-t-xl" 
+                         onclick="openProjectModal(this)"
+                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=File+Processing+Cover';" 
+                    />
+
+                    <div class="p-6">
+                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2023</span>
+                        <h3 class="text-xl font-bold text-indigo-700 mb-2">File Data Processing</h3>
+                        <p class="text-gray-600 text-sm mb-4">A project focused on reading data from a file and implementing its processing logic in code.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
+                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Group Project</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Backend Developer</span>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2" id="links-File Data Processing">
+                            <a href="https://github.com/FranklynThio/FileProcessing" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="github" class="w-4 h-4 mr-1"></i> View on GitHub
+                            </a>
+                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
+                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-gray-500 mt-10 text-sm italic">
+                Click the image or "View Gallery" to see the project detail screenshots!
+            </p>
+        </section>
+
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-12 fade-in-section">
+            <h2 class="section-title text-4xl font-bold">Skills</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Technical Skills -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
+                    <h3 class="text-xl font-semibold text-indigo-600 mb-4 flex items-center"><i data-lucide="code" class="w-5 h-5 mr-2 text-indigo-500"></i> Technical Skills (Hard Skills)</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="Front-End Development">Front-End Development</span>
+                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="UI/UX Design">UI/UX Design</span>
+                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="Mobile Development">Mobile Development</span>
+                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="Database Management">Database Management</span>
+                    </div>
+                </div>
+                <!-- Soft Skills -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
+                    <h3 class="text-xl font-semibold text-indigo-600 mb-4 flex items-center"><i data-lucide="users" class="w-5 h-5 mr-2 text-indigo-500"></i> Soft Skills</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Team Collaboration">Team Collaboration</span>
+                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Communication">Communication</span>
+                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Time Management">Time Management</span>
+                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Leadership">Leadership</span>
+                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Adaptability & Continuous Learning">Adaptability & Continuous Learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 mt-16 py-6 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm">
+            <p>&copy; 2025 Franklyn Thioatmadjaya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" onclick="scrollToTop()">
+        <i data-lucide="arrow-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Simple Modal for General Placeholders (e.g., CV Download) -->
+    <div id="message-box" class="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center p-4 hidden z-[99]" onclick="closeMessageBox()">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full border border-indigo-500/50" onclick="event.stopPropagation()">
+            <h4 class="text-xl font-bold text-indigo-600 mb-3" id="message-title"></h4>
+            <p class="text-gray-700 mb-4" id="message-body"></p>
+            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition" onclick="closeMessageBox()">Close</button>
+        </div>
+    </div>
+
+    <!-- Modal for Project Gallery/Detail -->
+    <div id="project-modal" class="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center p-4 hidden z-[100]" onclick="closeProjectModal()">
+        <div class="bg-white p-6 rounded-xl shadow-2xl w-full project-modal-content" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start mb-4 border-b pb-2">
+                <h4 class="text-2xl font-bold text-indigo-600" id="modal-project-title">Project Title</h4>
+                <button onclick="closeProjectModal()" class="text-gray-400 hover:text-gray-600 transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            
+            <p id="modal-project-description" class="text-gray-700 mb-4 text-sm"></p>
+            
+            <!-- Image Gallery Container -->
+            <div id="modal-image-gallery" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <!-- Image tags will be dynamically injected here -->
+            </div>
+
+            <!-- Links -->
+            <div id="modal-project-links" class="mt-4 flex flex-wrap gap-3">
+                <!-- Project links will be dynamically injected here -->
+            </div>
+            
+            <button class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition" onclick="closeProjectModal()">Close</button>
+        </div>
+    </div>
+
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Asset mapping for projects that have images
+        const projectAssetMap = {
+            "aria": ["aria_1.png", "aria_2.png", "aria_3.png", "aria_4.png"],
+            "diamondcut-ui": ["DiamondCut_Motors_Showroom1.png", "DiamondCut_Motors_Showroom2.png", "DiamondCut_Motors_Showroom3.png", "DiamondCut_Motors_Showroom4.png"],
+            "diamondcut-dev": ["DiamondCutCSS1.png", "DiamondCutCSS2.png", "DiamondCutCSS3.png", "DiamondCutCSS4.png"],
+            "fileprocessing": ["FileProcessing.png"],
+            "fittrack": ["Fittrack.png"],
+            "other-github": [], // No images for this card
+        };
+
+        // --- General Placeholders (CV Download) ---
+
+        const messageBox = document.getElementById('message-box');
+        const messageTitle = document.getElementById('message-title');
+        const messageBody = document.getElementById('message-body');
+
+        // IMPORTANT: The provided link is for a Google Drive *folder*. 
+        // For direct download, it is highly recommended to get the *direct public share link* of the CV file itself (ending in /view or /export).
+        const cvLink = "https://drive.google.com/drive/folders/1YSf_YpbS1-Te14nhOTDL47huNklMWyr8";
+
+        function showDownloadPlaceholder() {
+            // Instead of showing a placeholder, open the provided CV link in a new tab
+            window.open(cvLink, '_blank');
+        }
+
+        function closeMessageBox() {
+            messageBox.classList.add('hidden');
+        }
+
+        // --- Project Modal Functions (Gallery) ---
+        const projectModal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-project-title');
+        const modalDesc = document.getElementById('modal-project-description');
+        const modalLinks = document.getElementById('modal-project-links');
+        const modalGallery = document.getElementById('modal-image-gallery');
+
+        function openProjectModal(element) {
+            // Find the closest project-card element
+            const card = element.closest('.project-card');
+            
+            const title = card.getAttribute('data-project-title');
+            const projectId = card.getAttribute('data-project-id');
+            const description = card.getAttribute('data-project-description');
+            const linksJson = card.getAttribute('data-project-links');
+
+            modalTitle.textContent = title;
+            modalDesc.textContent = description;
+
+            // Handle Images (dynamic injection)
+            modalGallery.innerHTML = '';
+            const assets = projectAssetMap[projectId];
+
+            if (assets && assets.length > 0) {
+                assets.forEach((assetName, index) => {
+                    // Create the image container element
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'w-full';
+
+                    // Use the correct relative path: assets/ plus the file name
+                    const assetPath = `assets/${assetName}`;
+                    
+                    imageContainer.innerHTML = `
+                        <!-- Menggunakan path relatif 'assets/nama_file.png' -->
+                        <img src="${assetPath}" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=Image+Not+Found+(${assetName})';"
+                             alt="${title} Screenshot ${index + 1} (${assetName})" 
+                             class="modal-image">
+                        <!-- Menghapus tampilan nama file di bawah gambar:
+                        <p class="text-center text-gray-500 italic text-sm mt-1 mb-4">Image File: <b>${assetName}</b></p>
+                        -->
+                    `;
+                    modalGallery.appendChild(imageContainer);
+                });
+            } else {
+                modalGallery.innerHTML = `
+                    <p class="text-center text-gray-500 italic p-4 border border-dashed border-gray-400 rounded-lg">
+                        <i data-lucide="info" class="w-5 h-5 inline-block mr-2"></i>
+                        No image gallery available for this project. Please check the links below for details!
+                    </p>
+                `;
+            }
+
+            // Handle Links (inside modal)
+            modalLinks.innerHTML = '';
+            try {
+                const links = JSON.parse(linksJson);
+                if (links.length > 0) {
+                    links.forEach(link => {
+                        const linkEl = document.createElement('a');
+                        linkEl.href = link.url;
+                        linkEl.target = '_blank';
+                        // Use a different style for links inside the modal for clarity
+                        linkEl.className = 'bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition flex items-center text-sm';
+                        
+                        let icon = 'link';
+                        if (link.label.toLowerCase().includes('github')) icon = 'github';
+                        else if (link.label.toLowerCase().includes('figma')) icon = 'figma';
+                        else if (link.label.toLowerCase().includes('documentation')) icon = 'book-open';
+                        else if (link.label.toLowerCase().includes('profile')) icon = 'user';
+                        
+                        linkEl.innerHTML = `<i data-lucide="${icon}" class="w-4 h-4 mr-2"></i> ${link.label}`;
+                        modalLinks.appendChild(linkEl);
+                    });
+                } else {
+                     modalLinks.innerHTML = '<span class="text-gray-500 italic text-sm">No external links available for this project.</span>';
+                }
+                lucide.createIcons(); 
+            } catch (e) {
+                console.error("Error parsing project links:", e);
+                modalLinks.innerHTML = '<span class="text-red-500 text-sm">Error loading links.</span>';
+            }
+
+            projectModal.classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.add('hidden');
+        }
+
+
+        // --- Navigation and Animation Functions ---
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            
+            const btn = document.getElementById('mobile-menu-btn');
+            const icon = menu.classList.contains('hidden') ? 'menu' : 'x';
+            btn.innerHTML = `<i data-lucide="${icon}" class="w-6 h-6"></i>`;
+            lucide.createIcons();
+        }
+        
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                const menu = document.getElementById('mobile-menu');
+                if (!menu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollToTopButton.style.display = "block";
+                scrollToTopButton.style.opacity = "1";
+            } else {
+                scrollToTopButton.style.opacity = "0";
+                setTimeout(() => {
+                    if (scrollToTopButton.style.opacity === "0") {
+                        scrollToTopButton.style.display = "none";
+                    }
+                }, 300);
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+    </script>
+</body>
+</html>
