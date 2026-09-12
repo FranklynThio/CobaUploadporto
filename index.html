@@ -1,750 +1,1490 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Franklyn Thioatmadjaya - Software Portfolio</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        /* Custom scrollbar for a cleaner look (Light Theme) */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f0f4f8; } /* Light track */
-        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; } /* indigo-600 */
-        ::-webkit-scrollbar-thumb:hover { background: #3730a3; } /* indigo-800 */
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            /* Subtle background color */
-            background-color: #f8fafc; /* gray-50 */
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Franklyn Thioatmadjaya</title>
+<meta name="description" content="Full-stack application developer building hospital information systems on .NET. Portfolio, experience and live GitHub activity." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+<style>
+/* ============================================================
+   FRANKLYN THIOATMADJAYA — portfolio
+   Visual direction: clinical instrument panel.
+   Committed single-theme (dark). Every colour painted explicitly.
+   ============================================================ */
 
-        .section-title {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-            color: #1f2937; /* dark text */
-        }
+:root{
+  color-scheme: dark;
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50%;
-            height: 4px;
-            background-color: #6366f1; /* indigo-500 */
-            border-radius: 2px;
-        }
+  /* ground + surfaces */
+  --ink:      #06080d;
+  --ink-2:    #0a0e16;
+  --panel:    #0e141f;
+  --panel-2:  #131a27;
+  --panel-3:  #18202f;
+  --line:     #1c2636;
+  --line-2:   #2a3749;
 
-        /* Animation class for Intersection Observer */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+  /* type */
+  --txt:      #e8eef6;
+  --txt-2:    #9db0c6;
+  --txt-3:    #64768e;
 
-        /* Enhanced Card Hover Effect */
-        .hover-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3), 0 4px 6px -2px rgba(99, 102, 241, 0.1);
-        }
+  /* signal */
+  --teal:     #0fe0b6;
+  --teal-2:   #0aa98a;
+  --teal-ink: #03130f;
+  --violet:   #8b7cff;
+  --amber:    #ffb25c;
+  --rose:     #ff7a90;
 
-        /* Scroll to top button style */
-        #scroll-to-top {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            background-color: #4f46e5; /* indigo-600 */
-            color: white;
-            padding: 1rem;
-            border-radius: 9999px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        #scroll-to-top:hover {
-            background-color: #3730a3; /* indigo-800 */
-            transform: scale(1.1);
-        }
-        
-        /* Modal for Project Detail Gallery */
-        .project-modal-content {
-            max-width: 900px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            background-color: #e0e7ff; /* indigo-100 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4f46e5; /* indigo-600 */
-            font-weight: 600;
-            border-radius: 0.5rem;
-        }
-        .image-placeholder-modal {
-            background-color: #f3f4f6; /* gray-100 */
-            padding: 1rem;
-            border: 1px dashed #9ca3af; /* gray-400 */
-        }
-        /* Custom image styling for the gallery modal */
-        .modal-image {
-            width: 100%;
-            height: auto;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* New: Cover image style */
-        .project-cover {
-            width: 100%;
-            height: 200px; /* Consistent height for all covers */
-            object-fit: cover; /* Ensures image covers the area without distortion */
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
-        .project-cover:hover {
-            transform: scale(1.02);
-        }
-        /* Style for the actual profile photo */
-        .profile-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+  /* type system */
+  --display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
-    </style>
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r:    14px;
+  --r-lg: 22px;
+
+  --shell: 1180px;
+  --rail:  84px;
+  --ease:  cubic-bezier(.2,.7,.25,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--txt);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.65;
+  font-weight:300;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4{ font-family:var(--display); font-weight:700; line-height:1.08; margin:0; text-wrap:balance; letter-spacing:-.02em; }
+p{ margin:0; }
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+::selection{ background:var(--teal); color:var(--teal-ink); }
+
+:focus-visible{ outline:2px solid var(--teal); outline-offset:3px; border-radius:var(--r-xs); }
+
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:var(--ink-2); }
+::-webkit-scrollbar-thumb{ background:var(--line-2); border-radius:99px; border:2px solid var(--ink-2); }
+::-webkit-scrollbar-thumb:hover{ background:var(--teal-2); }
+
+/* ---------- shared atoms ---------- */
+.wrap{ width:100%; max-width:var(--shell); margin-inline:auto; padding-inline:clamp(20px,5vw,40px); }
+
+.eyebrow{
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--teal); display:flex; align-items:center; gap:.7rem; font-weight:500;
+}
+.eyebrow::before{
+  content:""; width:26px; height:1px; background:linear-gradient(90deg,transparent,var(--teal));
+}
+
+.sec{ padding-block:clamp(72px,10vw,128px); position:relative; z-index:2; }
+.sec-head{ display:flex; flex-direction:column; gap:.9rem; margin-bottom:clamp(32px,5vw,56px); }
+.sec-head h2{ font-size:clamp(1.9rem,4.6vw,3.1rem); }
+.sec-head .lede{ color:var(--txt-2); max-width:62ch; font-size:1.02rem; }
+
+/* ---------- ambient field ---------- */
+.field{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.field .grid{
+  position:absolute; inset:-30%;
+  background-image:
+    linear-gradient(to right, rgba(148,176,208,.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148,176,208,.055) 1px, transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 0%, #000 5%, transparent 72%);
+          mask-image:radial-gradient(ellipse 70% 55% at 50% 0%, #000 5%, transparent 72%);
+  animation:drift 40s linear infinite;
+}
+@keyframes drift{ to{ transform:translate3d(64px,64px,0); } }
+
+.field .glow{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; }
+.glow.g1{ width:46vw; height:46vw; left:-10vw; top:-12vw; background:radial-gradient(circle,rgba(15,224,182,.30),transparent 65%); animation:float1 22s ease-in-out infinite; }
+.glow.g2{ width:40vw; height:40vw; right:-8vw; top:10vh; background:radial-gradient(circle,rgba(139,124,255,.26),transparent 65%); animation:float2 28s ease-in-out infinite; }
+.glow.g3{ width:52vw; height:52vw; left:28vw; top:58vh; background:radial-gradient(circle,rgba(10,169,138,.16),transparent 68%); animation:float1 34s ease-in-out infinite reverse; }
+@keyframes float1{ 50%{ transform:translate3d(6vw,7vh,0) scale(1.12); } }
+@keyframes float2{ 50%{ transform:translate3d(-7vw,5vh,0) scale(.9); } }
+
+#motes{ position:absolute; inset:0; width:100%; height:100%; opacity:.55; }
+
+.spot{
+  position:fixed; z-index:1; width:520px; height:520px; margin:-260px 0 0 -260px; border-radius:50%;
+  background:radial-gradient(circle,rgba(15,224,182,.075),transparent 62%);
+  pointer-events:none; opacity:0; transition:opacity .5s var(--ease);
+}
+body.has-pointer .spot{ opacity:1; }
+
+/* ---------- nav rail ---------- */
+.rail{
+  position:fixed; left:0; top:0; bottom:0; width:var(--rail); z-index:40;
+  display:none; flex-direction:column; align-items:center; justify-content:space-between;
+  padding-block:26px; border-right:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(10,14,22,.9),rgba(6,8,13,.86));
+  backdrop-filter:blur(14px);
+}
+.rail .sig{ font-family:var(--display); font-weight:800; font-size:.9rem; letter-spacing:.1em; color:var(--teal); }
+.rail-dots{ display:flex; flex-direction:column; gap:2px; }
+.rail-dot{
+  position:relative; display:flex; align-items:center; justify-content:center;
+  width:44px; height:40px; color:var(--txt-3);
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.08em;
+  transition:color .3s var(--ease);
+}
+.rail-dot .bar{
+  position:absolute; left:-1px; top:50%; width:2px; height:0; transform:translateY(-50%);
+  background:var(--teal); border-radius:2px; transition:height .35s var(--ease);
+}
+.rail-dot:hover{ color:var(--txt-2); }
+.rail-dot.on{ color:var(--teal); }
+.rail-dot.on .bar{ height:22px; }
+.rail-dot .tip{
+  position:absolute; left:52px; white-space:nowrap; padding:4px 9px; border-radius:var(--r-xs);
+  background:var(--panel-2); border:1px solid var(--line-2); color:var(--txt);
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  opacity:0; transform:translateX(-6px); transition:opacity .25s var(--ease), transform .25s var(--ease); pointer-events:none;
+}
+.rail-dot:hover .tip{ opacity:1; transform:translateX(0); }
+.rail-clock{ writing-mode:vertical-rl; font-family:var(--mono); font-size:.6rem; letter-spacing:.24em; color:var(--txt-3); text-transform:uppercase; }
+
+@media (min-width:1120px){
+  .rail{ display:flex; }
+  body{ padding-left:var(--rail); }
+}
+
+/* ---------- top bar (mobile / tablet) ---------- */
+.topbar{
+  position:sticky; top:0; z-index:45;
+  background:rgba(6,8,13,.78); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.topbar .row{ display:flex; align-items:center; justify-content:space-between; height:62px; }
+.topbar .brand{ font-family:var(--display); font-weight:800; letter-spacing:.04em; font-size:.95rem; }
+.topbar .brand em{ font-style:normal; color:var(--teal); }
+.topbar nav{ display:none; gap:1.6rem; }
+.topbar nav a{ font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--txt-2); transition:color .25s var(--ease); }
+.topbar nav a:hover{ color:var(--teal); }
+.menu-btn{ display:grid; gap:5px; padding:8px; }
+.menu-btn i{ display:block; width:20px; height:1.5px; background:var(--txt); transition:transform .3s var(--ease), opacity .2s; }
+body.nav-open .menu-btn i:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+body.nav-open .menu-btn i:nth-child(2){ opacity:0; }
+body.nav-open .menu-btn i:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+.drawer{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s var(--ease); }
+body.nav-open .drawer{ grid-template-rows:1fr; }
+.drawer > div{ overflow:hidden; }
+.drawer a{
+  display:flex; align-items:center; gap:.9rem; padding:.85rem 0; border-top:1px solid var(--line);
+  font-family:var(--mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--txt-2);
+}
+.drawer a b{ color:var(--teal); font-weight:500; font-size:.65rem; }
+@media (min-width:720px){ .topbar nav{ display:flex; } .menu-btn{ display:none; } }
+@media (min-width:1120px){ .topbar{ display:none; } }
+
+/* progress */
+.progress{ position:fixed; top:0; left:0; height:2px; width:0; background:linear-gradient(90deg,var(--teal-2),var(--teal)); z-index:60; box-shadow:0 0 12px rgba(15,224,182,.7); }
+
+/* ---------- hero ---------- */
+.hero{ position:relative; z-index:2; padding-top:clamp(48px,8vw,92px); padding-bottom:clamp(56px,8vw,96px); }
+.hero-grid{ display:grid; gap:clamp(32px,5vw,60px); align-items:center; }
+@media (min-width:960px){ .hero-grid{ grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr); } }
+
+.status{
+  display:inline-flex; align-items:center; gap:.6rem; padding:.4rem .85rem .4rem .6rem;
+  border:1px solid rgba(15,224,182,.32); border-radius:99px; background:rgba(15,224,182,.07);
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--teal);
+  width:fit-content;
+}
+.status .pulse{ position:relative; width:7px; height:7px; border-radius:50%; background:var(--teal); }
+.status .pulse::after{ content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--teal); animation:ping 2s var(--ease) infinite; }
+@keyframes ping{ 0%{ transform:scale(.6); opacity:1; } 100%{ transform:scale(1.7); opacity:0; } }
+
+.hero h1{
+  font-size:clamp(2.5rem,7.2vw,5rem); font-weight:800; letter-spacing:-.035em; line-height:.96;
+  margin-block:1.1rem .35rem;
+}
+.hero h1 .ln{ display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.04em; }
+.hero h1 .ln > span{ display:block; }
+.hero h1 .dim{ color:var(--txt-3); }
+
+.role{
+  font-family:var(--mono); font-size:clamp(.78rem,1.8vw,.95rem); letter-spacing:.05em; color:var(--txt-2);
+  min-height:1.7em; margin-top:.5rem;
+}
+.role b{ color:var(--teal); font-weight:500; }
+.role .caret{ display:inline-block; width:8px; height:1.05em; background:var(--teal); vertical-align:-.16em; margin-left:2px; animation:blink 1.05s steps(1) infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+.hero-copy{ color:var(--txt-2); max-width:56ch; margin-top:1.5rem; font-size:1.04rem; }
+
+/* ECG strip */
+.ecg{ position:relative; margin-top:1.9rem; border:1px solid var(--line); border-radius:var(--r); background:linear-gradient(180deg,var(--panel),var(--ink-2)); overflow:hidden; }
+.ecg-head{ display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.55rem .9rem; border-bottom:1px solid var(--line); }
+.ecg-head span{ font-family:var(--mono); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--txt-3); }
+.ecg-head span b{ color:var(--teal); font-weight:500; }
+.ecg svg{ display:block; width:100%; height:74px; }
+.ecg .trace{ fill:none; stroke:#0fe0b6; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1200; stroke-dashoffset:1200; animation:sweep 6s linear infinite; }
+@keyframes sweep{ to{ stroke-dashoffset:-1200; } }
+
+.cta-row{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.9rem; }
+.btn{
+  display:inline-flex; align-items:center; gap:.6rem; padding:.82rem 1.3rem; border-radius:99px;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+  border:1px solid var(--line-2); color:var(--txt); background:var(--panel-2);
+  transition:transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+  will-change:transform;
+}
+.btn:hover{ border-color:var(--teal); color:var(--teal); background:var(--panel-3); }
+.btn.primary{ background:var(--teal); color:var(--teal-ink); border-color:var(--teal); box-shadow:0 8px 30px -12px rgba(15,224,182,.85); }
+.btn.primary:hover{ background:#2af0c8; color:var(--teal-ink); }
+.btn svg{ width:15px; height:15px; flex:none; }
+
+.contact-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem; }
+.chip{
+  display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem; border-radius:99px;
+  border:1px solid var(--line); background:rgba(19,26,39,.6); color:var(--txt-2);
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.05em;
+  transition:border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+}
+a.chip:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+.chip svg{ width:13px; height:13px; flex:none; }
+
+/* portrait */
+.portrait{ position:relative; justify-self:center; width:min(320px,78vw); }
+.portrait .frame{
+  position:relative; border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--line-2);
+  background:var(--panel); aspect-ratio:1/1.12;
+}
+.portrait img{ width:100%; height:100%; object-fit:cover; object-position:center 18%; filter:saturate(.85) contrast(1.06); }
+.portrait .frame::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,8,13,0) 40%,rgba(6,8,13,.78) 100%),
+             linear-gradient(120deg,rgba(15,224,182,.14),transparent 45%);
+}
+.portrait .scan{
+  position:absolute; left:0; right:0; height:100px; z-index:2; pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(15,224,182,.14),transparent);
+  animation:scan 5.5s var(--ease) infinite;
+}
+@keyframes scan{ 0%{ top:-100px; } 100%{ top:100%; } }
+.portrait .tag{
+  position:absolute; z-index:3; left:14px; right:14px; bottom:14px;
+  display:flex; justify-content:space-between; align-items:center; gap:.6rem;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--txt-2);
+}
+.portrait .tag b{ color:var(--teal); font-weight:500; }
+.portrait .corner{ position:absolute; width:16px; height:16px; border:1.5px solid var(--teal); z-index:4; opacity:.8; }
+.portrait .corner.tl{ top:-1px; left:-1px; border-right:0; border-bottom:0; border-radius:var(--r-lg) 0 0 0; }
+.portrait .corner.br{ bottom:-1px; right:-1px; border-left:0; border-top:0; border-radius:0 0 var(--r-lg) 0; }
+
+/* ---------- stat strip ---------- */
+.stats{ display:grid; grid-template-columns:repeat(2,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; z-index:2; }
+.stat{ padding:1.5rem clamp(14px,2.4vw,26px); }
+.stat:nth-child(odd){ border-right:1px solid var(--line); }
+.stat:nth-child(-n+2){ border-bottom:1px solid var(--line); }
+@media (min-width:760px){
+  .stats{ grid-template-columns:repeat(4,1fr); }
+  .stat{ border-right:1px solid var(--line); border-bottom:0; }
+  .stat:nth-child(-n+2){ border-bottom:0; }
+  .stat:last-child{ border-right:0; }
+}
+.stat .n{ font-family:var(--display); font-size:clamp(1.9rem,4.4vw,2.6rem); font-weight:700; letter-spacing:-.03em; color:var(--txt); font-variant-numeric:tabular-nums; display:flex; align-items:baseline; gap:.08em; }
+.stat .n em{ font-style:normal; color:var(--teal); font-size:.58em; }
+.stat .k{ font-family:var(--mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--txt-3); margin-top:.35rem; }
+
+/* ---------- about ---------- */
+.about-grid{ display:grid; gap:clamp(26px,4vw,52px); }
+@media (min-width:900px){ .about-grid{ grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); } }
+.about-body p + p{ margin-top:1.1rem; }
+.about-body p{ color:var(--txt-2); font-size:1.04rem; }
+.about-body strong{ color:var(--txt); font-weight:500; }
+.focus-list{ display:flex; flex-direction:column; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:linear-gradient(180deg,var(--panel),rgba(10,14,22,.5)); }
+.focus-list .it{ display:flex; gap:.9rem; padding:1.05rem 1.1rem; border-bottom:1px solid var(--line); transition:background .25s var(--ease); }
+.focus-list .it:last-child{ border-bottom:0; }
+.focus-list .it:hover{ background:var(--panel-2); }
+.focus-list .it svg{ width:17px; height:17px; color:var(--teal); flex:none; margin-top:4px; }
+.focus-list .it h4{ font-size:.94rem; font-weight:600; font-family:var(--body); letter-spacing:0; }
+.focus-list .it p{ color:var(--txt-3); font-size:.86rem; line-height:1.5; margin-top:.15rem; }
+
+/* ---------- timeline ---------- */
+.tl{ position:relative; display:flex; flex-direction:column; gap:1rem; }
+.tl::before{ content:""; position:absolute; left:9px; top:10px; bottom:10px; width:1px; background:linear-gradient(180deg,var(--teal),var(--line-2) 22%,var(--line)); }
+.tl-item{ position:relative; padding-left:2.6rem; }
+.tl-node{ position:absolute; left:0; top:1.55rem; width:19px; height:19px; border-radius:50%; border:1px solid var(--line-2); background:var(--ink); display:grid; place-items:center; }
+.tl-node i{ width:7px; height:7px; border-radius:50%; background:var(--line-2); display:block; }
+.tl-item.now .tl-node{ border-color:var(--teal); box-shadow:0 0 0 4px rgba(15,224,182,.1); }
+.tl-item.now .tl-node i{ background:var(--teal); animation:beat 1.8s var(--ease) infinite; }
+@keyframes beat{ 50%{ transform:scale(1.55); } }
+
+.card{
+  border:1px solid var(--line); border-radius:var(--r); background:linear-gradient(180deg,var(--panel),rgba(10,14,22,.65));
+  padding:clamp(18px,2.8vw,26px); transition:border-color .3s var(--ease), transform .3s var(--ease), background .3s var(--ease);
+}
+.tl-item:hover .card{ border-color:var(--line-2); transform:translateX(4px); }
+.tl-item.now .card{ border-color:rgba(15,224,182,.34); background:linear-gradient(180deg,rgba(15,224,182,.05),rgba(10,14,22,.7)); }
+
+.card-top{ display:flex; flex-wrap:wrap; gap:.6rem 1rem; justify-content:space-between; align-items:flex-start; }
+.card h3{ font-size:clamp(1.08rem,2.3vw,1.35rem); font-weight:600; }
+.card .org{ display:flex; align-items:center; gap:.5rem; color:var(--teal); font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; margin-top:.45rem; }
+.card .org svg{ width:13px; height:13px; flex:none; }
+.when{ font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--txt-3); white-space:nowrap; padding-top:.3rem; }
+.when.live{ color:var(--teal); }
+.card .desc{ color:var(--txt-2); font-size:.95rem; margin-top:.9rem; max-width:68ch; }
+.bullets{ list-style:none; margin:.9rem 0 0; padding:0; display:flex; flex-direction:column; gap:.5rem; }
+.bullets li{ position:relative; padding-left:1.15rem; color:var(--txt-2); font-size:.93rem; }
+.bullets li::before{ content:""; position:absolute; left:0; top:.66em; width:5px; height:5px; border-radius:1px; background:var(--teal-2); transform:rotate(45deg); }
+.stack{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.1rem; }
+.tech{
+  font-family:var(--mono); font-size:.65rem; letter-spacing:.06em; padding:.3rem .6rem; border-radius:var(--r-xs);
+  border:1px solid var(--line-2); color:var(--txt-2); background:rgba(24,32,47,.7);
+}
+.tech.hot{ border-color:rgba(15,224,182,.35); color:var(--teal); background:rgba(15,224,182,.07); }
+
+/* ---------- education ---------- */
+.edu-grid{ display:grid; gap:1rem; }
+@media (min-width:820px){ .edu-grid{ grid-template-columns:1fr 1fr; } }
+.edu{ position:relative; overflow:hidden; }
+.edu .glyph{ position:absolute; right:-10px; bottom:-30px; font-family:var(--display); font-weight:800; font-size:6rem; color:rgba(148,176,208,.045); letter-spacing:-.06em; pointer-events:none; }
+
+/* ---------- projects ---------- */
+.proj-grid{ display:grid; gap:clamp(16px,2.4vw,22px); }
+@media (min-width:700px){ .proj-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1080px){ .proj-grid{ grid-template-columns:repeat(3,1fr); } }
+
+.proj{
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+  border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
+  transition:border-color .35s var(--ease), box-shadow .35s var(--ease), transform .35s var(--ease);
+  will-change:transform;
+}
+.proj:hover{ border-color:rgba(15,224,182,.35); box-shadow:0 26px 60px -34px rgba(0,0,0,.95); }
+.proj .shot{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--ink-2); cursor:zoom-in; width:100%; padding:0; display:block; }
+.proj .shot img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease), filter .5s var(--ease); filter:saturate(.8) brightness(.82); }
+.proj:hover .shot img{ transform:scale(1.06); filter:saturate(1) brightness(1); }
+.proj .shot::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(6,8,13,0) 45%,rgba(6,8,13,.85)); pointer-events:none; }
+.proj .yr{
+  position:absolute; z-index:2; top:10px; left:10px; padding:.24rem .55rem; border-radius:var(--r-xs);
+  background:rgba(6,8,13,.75); border:1px solid var(--line-2); backdrop-filter:blur(6px);
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; color:var(--txt-2);
+}
+.proj .zoom{
+  position:absolute; z-index:2; right:10px; bottom:10px; display:inline-flex; align-items:center; gap:.4rem;
+  padding:.3rem .6rem; border-radius:99px; background:rgba(6,8,13,.8); border:1px solid var(--line-2);
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--txt-2);
+  opacity:0; transform:translateY(6px); transition:opacity .3s var(--ease), transform .3s var(--ease);
+}
+.proj .zoom svg{ width:12px; height:12px; }
+.proj:hover .zoom, .proj .shot:focus-visible .zoom{ opacity:1; transform:translateY(0); }
+.proj .body{ padding:1.15rem 1.15rem 1.25rem; display:flex; flex-direction:column; gap:.55rem; flex:1; }
+.proj h3{ font-size:1.05rem; font-weight:600; }
+.proj .role-line{ font-family:var(--mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--teal); }
+.proj .body > p{ color:var(--txt-3); font-size:.88rem; line-height:1.55; }
+.proj .foot{ margin-top:auto; padding-top:.9rem; display:flex; flex-wrap:wrap; gap:.45rem; }
+.mini{
+  display:inline-flex; align-items:center; gap:.38rem; padding:.38rem .7rem; border-radius:99px;
+  border:1px solid var(--line-2); background:var(--panel-2); color:var(--txt-2);
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  transition:border-color .25s var(--ease), color .25s var(--ease);
+}
+.mini:hover{ border-color:var(--teal); color:var(--teal); }
+.mini svg{ width:12px; height:12px; flex:none; }
+
+/* ---------- github feed ---------- */
+.gh-head{ display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:flex-end; }
+.gh-state{ display:inline-flex; align-items:center; gap:.5rem; font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; color:var(--txt-3); }
+.gh-state .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber); flex:none; }
+.gh-state.ok .dot{ background:var(--teal); box-shadow:0 0 8px var(--teal); }
+.gh-state.ok{ color:var(--teal); }
+
+.repos{ display:grid; gap:12px; margin-top:1.6rem; }
+@media (min-width:700px){ .repos{ grid-template-columns:repeat(2,1fr); } }
+.repo{
+  display:flex; flex-direction:column; gap:.55rem; padding:1.1rem 1.15rem;
+  border:1px solid var(--line); border-radius:var(--r); background:linear-gradient(180deg,var(--panel),rgba(10,14,22,.6));
+  transition:border-color .3s var(--ease), transform .3s var(--ease), background .3s var(--ease);
+}
+.repo:hover{ border-color:rgba(15,224,182,.4); transform:translateY(-3px); background:var(--panel-2); }
+.repo .rn{ display:flex; align-items:center; gap:.5rem; font-family:var(--mono); font-size:.85rem; font-weight:500; color:var(--txt); transition:color .25s var(--ease); }
+.repo .rn svg{ width:15px; height:15px; color:var(--txt-3); flex:none; }
+.repo:hover .rn{ color:var(--teal); }
+.repo .rd{ color:var(--txt-3); font-size:.85rem; line-height:1.5; }
+.repo .rm{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:auto; padding-top:.3rem; font-family:var(--mono); font-size:.64rem; letter-spacing:.06em; color:var(--txt-3); }
+.repo .rm span{ display:inline-flex; align-items:center; gap:.4rem; }
+.lang{ width:8px; height:8px; border-radius:50%; background:var(--txt-3); flex:none; }
+
+/* ---------- skills ---------- */
+.skill-grid{ display:grid; gap:14px; }
+@media (min-width:640px){ .skill-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1020px){ .skill-grid{ grid-template-columns:repeat(4,1fr); } }
+.skill-col{ border:1px solid var(--line); border-radius:var(--r); padding:1.25rem 1.2rem; background:linear-gradient(180deg,var(--panel),rgba(10,14,22,.55)); }
+.skill-col h3{ font-family:var(--body); font-size:.76rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); display:flex; align-items:center; gap:.55rem; }
+.skill-col h3 svg{ width:15px; height:15px; flex:none; }
+.skill-col ul{ list-style:none; margin:1rem 0 0; padding:0; display:flex; flex-direction:column; gap:.62rem; }
+.skill-col li{ display:flex; align-items:center; gap:.6rem; font-size:.9rem; color:var(--txt-2); transition:color .25s var(--ease); }
+.skill-col li::before{ content:""; width:14px; height:1px; background:var(--line-2); flex:none; transition:background .3s var(--ease), width .3s var(--ease); }
+.skill-col li:hover{ color:var(--txt); }
+.skill-col li:hover::before{ background:var(--teal); width:20px; }
+
+.marquee{ margin-top:clamp(30px,4vw,46px); border-block:1px solid var(--line); overflow:hidden; padding-block:.9rem; -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+.marquee .track{ display:flex; gap:2.6rem; width:max-content; animation:slide 34s linear infinite; }
+.marquee .track span{ font-family:var(--mono); font-size:.76rem; letter-spacing:.2em; text-transform:uppercase; color:var(--txt-3); white-space:nowrap; }
+.marquee .track span b{ color:var(--teal-2); font-weight:500; }
+@keyframes slide{ to{ transform:translateX(-50%); } }
+.marquee:hover .track{ animation-play-state:paused; }
+
+/* ---------- contact ---------- */
+.contact-card{
+  position:relative; overflow:hidden; border:1px solid var(--line-2); border-radius:var(--r-lg);
+  padding:clamp(28px,5vw,58px); text-align:center;
+  background:radial-gradient(ellipse 80% 120% at 50% 0%, rgba(15,224,182,.12), transparent 62%), linear-gradient(180deg,var(--panel-2),var(--ink-2));
+}
+.contact-card h2{ font-size:clamp(1.8rem,4.6vw,3rem); margin-top:.9rem; }
+.contact-card > p{ color:var(--txt-2); max-width:48ch; margin:1rem auto 0; }
+.contact-card .cta-row{ justify-content:center; }
+.contact-card .contact-row{ justify-content:center; }
+.contact-card .eyebrow{ justify-content:center; }
+
+footer{ border-top:1px solid var(--line); padding-block:2rem; position:relative; z-index:2; }
+footer .row{ display:flex; flex-wrap:wrap; gap:.8rem 1.5rem; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--txt-3); }
+footer a:hover{ color:var(--teal); }
+
+/* ---------- modal ---------- */
+.modal{ position:fixed; inset:0; z-index:90; display:none; }
+.modal.open{ display:block; }
+.modal .veil{ position:absolute; inset:0; background:rgba(3,5,9,.86); backdrop-filter:blur(8px); animation:fade .3s var(--ease); }
+@keyframes fade{ from{ opacity:0; } }
+.modal .sheet{
+  position:absolute; inset:clamp(12px,4vh,52px) clamp(12px,5vw,60px);
+  background:var(--ink-2); border:1px solid var(--line-2); border-radius:var(--r-lg);
+  display:flex; flex-direction:column; overflow:hidden; animation:rise .38s var(--ease);
+}
+@keyframes rise{ from{ opacity:0; transform:translateY(22px) scale(.985); } }
+.modal .sheet-head{ display:flex; gap:1rem; justify-content:space-between; align-items:flex-start; padding:1.2rem clamp(16px,3vw,28px); border-bottom:1px solid var(--line); }
+.modal .sheet-head h3{ font-size:clamp(1.1rem,2.6vw,1.6rem); }
+.modal .sheet-head p{ color:var(--txt-3); font-size:.9rem; margin-top:.45rem; max-width:70ch; }
+.x{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line-2); display:grid; place-items:center; color:var(--txt-2); flex:none; transition:border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease); }
+.x:hover{ border-color:var(--rose); color:var(--rose); transform:rotate(90deg); }
+.x svg{ width:16px; height:16px; }
+.modal .sheet-body{ overflow-y:auto; padding:clamp(16px,3vw,28px); display:flex; flex-direction:column; gap:14px; }
+.modal .sheet-body img{ width:100%; border-radius:var(--r); border:1px solid var(--line); }
+.modal .sheet-body .empty{ color:var(--txt-3); font-family:var(--mono); font-size:.78rem; letter-spacing:.08em; }
+.modal .sheet-foot{ padding:1rem clamp(16px,3vw,28px); border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:.5rem; }
+
+/* ---------- reveal (JS-gated so the page stays readable at rest) ---------- */
+html.js-anim .rv{ opacity:0; transform:translateY(22px); }
+html.js-anim .rv.in{ opacity:1; transform:none; transition:opacity .75s var(--ease), transform .75s var(--ease); }
+
+/* load sequence */
+html.js-anim .hero h1 .ln > span{ transform:translateY(105%); }
+html.js-anim body.ready .hero h1 .ln > span{ transform:translateY(0); transition:transform .9s var(--ease); }
+html.js-anim body.ready .hero h1 .ln:nth-child(2) > span{ transition-delay:.1s; }
+html.js-anim .hero .lift{ opacity:0; transform:translateY(16px); }
+html.js-anim body.ready .hero .lift{ opacity:1; transform:none; transition:opacity .7s var(--ease), transform .7s var(--ease); }
+html.js-anim body.ready .hero .d1{ transition-delay:.26s; }
+html.js-anim body.ready .hero .d2{ transition-delay:.36s; }
+html.js-anim body.ready .hero .d3{ transition-delay:.46s; }
+html.js-anim body.ready .hero .d4{ transition-delay:.56s; }
+html.js-anim body.ready .hero .d5{ transition-delay:.66s; }
+
+@media (prefers-reduced-motion:reduce){
+  html.js-anim .rv, html.js-anim .hero .lift{ opacity:1 !important; transform:none !important; }
+  html.js-anim .hero h1 .ln > span{ transform:none !important; }
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
 </head>
-<body class="text-gray-900 antialiased">
+<body>
 
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-xl font-extrabold text-indigo-600 tracking-wider hover:text-indigo-800 transition duration-300">FRANKLYN THIO</a>
-            <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
-                <a href="#profile" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Profile</a>
-                <a href="#education" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Education</a>
-                <a href="#experience" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Experience</a>
-                <a href="#projects" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Projects</a>
-                <a href="#skills" class="hover:text-indigo-600 transition duration-200 border-b-2 border-transparent hover:border-indigo-600 pb-1">Skills</a>
-            </nav>
-            <!-- Mobile Menu Button (Lucide Menu Icon) -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition" onclick="toggleMenu()">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-            <a href="#profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Profile</a>
-            <a href="#education" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Education</a>
-            <a href="#experience" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Experience</a>
-            <a href="#projects" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Projects</a>
-            <a href="#skills" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition" onclick="toggleMenu()">Skills</a>
-        </div>
-    </header>
+<div class="progress" id="progress"></div>
+<div class="spot" id="spot" aria-hidden="true"></div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="field" aria-hidden="true">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="glow g3"></div>
+  <div class="grid"></div>
+  <canvas id="motes"></canvas>
+</div>
 
-        <!-- Hero Section -->
-        <section id="hero" class="pt-16 pb-24 text-center">
-            <!-- PROFILE PHOTO (Changed to use assets/profile.jpg and increased size) -->
-            <div class="w-48 h-48 mx-auto rounded-full bg-indigo-500 flex items-center justify-center mb-6 shadow-2xl transition duration-500 ease-in-out transform hover:scale-105">
-                <img src="assets/profile.jpg" 
-                     alt="Franklyn Thioatmadjaya Profile Photo" 
-                     class="profile-photo rounded-full"
-                     onerror="this.onerror=null; this.src='https://placehold.co/192x192/e0e7ff/6366f1?text=PROFILE';" 
-                />
-            </div>
-            <!-- End Profile Photo -->
+<!-- ============ RAIL (desktop) ============ -->
+<aside class="rail" aria-label="Section navigation">
+  <span class="sig">FT</span>
+  <nav class="rail-dots">
+    <a class="rail-dot" href="#top"        data-sec="top"><span class="bar"></span>01<span class="tip">Intro</span></a>
+    <a class="rail-dot" href="#about"      data-sec="about"><span class="bar"></span>02<span class="tip">Profile</span></a>
+    <a class="rail-dot" href="#experience" data-sec="experience"><span class="bar"></span>03<span class="tip">Experience</span></a>
+    <a class="rail-dot" href="#education"  data-sec="education"><span class="bar"></span>04<span class="tip">Education</span></a>
+    <a class="rail-dot" href="#work"       data-sec="work"><span class="bar"></span>05<span class="tip">Work</span></a>
+    <a class="rail-dot" href="#github"     data-sec="github"><span class="bar"></span>06<span class="tip">GitHub</span></a>
+    <a class="rail-dot" href="#skills"     data-sec="skills"><span class="bar"></span>07<span class="tip">Skills</span></a>
+    <a class="rail-dot" href="#contact"    data-sec="contact"><span class="bar"></span>08<span class="tip">Contact</span></a>
+  </nav>
+  <span class="rail-clock" id="railclock">JAKARTA</span>
+</aside>
 
-            <h1 class="text-6xl sm:text-8xl font-extrabold tracking-tighter text-gray-800 mb-4">
-                FRANKLYN THIOATMADJAYA
-            </h1>
-            <p class="text-2xl sm:text-3xl text-indigo-600 font-medium">
-                Informatics Student | UI/UX & Front-End Enthusiast
-            </p>
-            
-            <!-- CTAs: Download CV & View Projects -->
-            <div class="mt-12 flex justify-center space-x-4">
-                <button onclick="showDownloadPlaceholder()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-indigo-500/50 transition duration-300 transform hover:scale-105 flex items-center">
-                    <i data-lucide="download" class="w-5 h-5 mr-2"></i> Download CV (PDF)
-                </button>
-                <a href="#projects" class="bg-white border border-indigo-500 text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center">
-                    View Projects <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
-                </a>
-            </div>
-
-            <!-- Contact Info & Socials (UPDATED: Displaying email addresses directly) -->
-            <div class="mt-8 flex justify-center flex-wrap gap-x-8 gap-y-4 text-gray-600 text-sm">
-                
-                <!-- WhatsApp Link -->
-                <a href="https://wa.me/6281218198477" target="_blank" class="flex items-center hover:text-indigo-600 transition font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 448 512" fill="#25D366"><path d="M380.9 97.4C339 55.4 283.6 32 225.6 32c-97.4 0-176 78.6-176 176 0 35.8 10.3 71.3 30.6 102.7L32 480l106.8-35.3c31.3 17.5 66.8 26.6 101.4 26.6h1.2c97.4 0 176-78.6 176-176 0-42.3-15-83.3-44.1-114.7zM225.6 448c-29 0-57.8-7.8-82.6-22.5l-47.9-15.9 15.9-47.9c-14.7-25.1-22.5-53.8-22.5-82.6 0-79.6 64.6-144.2 144.2-144.2 38.6 0 75 15.1 102.5 42.6s42.6 63.9 42.6 102.5c0 79.6-64.6 144.2-144.2 144.2zM337.3 283.5c-4.4-2.2-26-12.8-29.9-14.2s-6.9-2.2-9.9 2.2c-3 4.4-11.4 14.2-14 17.1-2.6 2.6-5.2 3-9.7.5-12.8-6.8-23.6-14.7-33.8-25.4-8-8.2-13.4-17.7-17.9-27.9-4.7-10.4-.2-15.6 4.1-19.1 3.5-3 7.5-6.5 9.7-9.7 2.2-3 2.2-5.1 1.5-8.1-1.2-3-4.4-10.4-6.4-14.7-2-4.4-4-3.7-5.2-3.7-2.2-.3-4.7-.3-7.2-.3-2.6 0-6.9 1.1-10.6 5.2-3.8 4.1-14.5 14.1-17.7 17.9-3.3 3.9-6.3 8-7.8 12.8-2 6.5-1.9 13.9.2 20.3 3.6 10.8 10.4 20.4 17.9 28.5 7.6 8.3 16.5 15.6 26.2 21.6 8.7 5.4 17.7 9.8 27.5 13.5 10.2 3.8 17.2 3.4 25.2 2.9 8.1-.5 25.5-10.3 29-20.1 3.5-9.8 3.5-18.3 2.5-20.1-1-1.7-3.9-2.7-8.3-4.9z"/></svg> 
-                    WhatsApp (0812-1819-8477)
-                </a>
-                
-                <!-- Email Link 1 (BINUS) - Displaying directly -->
-                <a href="mailto:franklyn.thioatamadjaya@binus.ac.id" class="flex items-center hover:text-indigo-600 transition font-medium">
-                    <i data-lucide="mail" class="w-4 h-4 mr-2 text-indigo-500"></i>franklyn.thioatamadjaya@binus.ac.id
-                </a>
-
-                <!-- Email Link 2 (GMAIL) - Displaying directly -->
-                <a href="mailto:thiofranklyn@gmail.com" class="flex items-center hover:text-indigo-600 transition font-medium">
-                    <i data-lucide="mail" class="w-4 h-4 mr-2 text-indigo-500"></i>thiofranklyn@gmail.com
-                </a>
-
-                <!-- LinkedIn Link -->
-                <a href="https://www.linkedin.com/in/franklyn-thioatmadjaya-a80206385/" target="_blank" class="flex items-center hover:text-indigo-600 transition">
-                    <i data-lucide="linkedin" class="w-4 h-4 mr-2 text-indigo-500"></i>LinkedIn Profile
-                </a>
-                <span class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-indigo-500"></i>Karawaci, Tangerang</span>
-            </div>
-            <!-- End Contact Info & Socials -->
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile" class="py-12 fade-in-section">
-            <h2 class="section-title text-4xl font-bold">Profile</h2>
-            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 hover-card transition duration-300">
-                <p class="text-gray-700 leading-relaxed text-lg mb-6">
-                    An Informatics student at Bina Nusantara University, expected to graduate in 2027. I am passionate
-                    about UI/UX Design, Front-End Development, Application Developer and Mobile Application Development.
-                    I continuously develop skills to design and build interactive, user-friendly interfaces based
-                    on modern design principles. Known for being a responsible, disciplined individual with strong
-                    time management skills. Highly motivated to keep learning, collaborate effectively, and remain
-                    open to feedback and constructive criticism to achieve optimal results.
-                </p>
-                <!-- AI feature button removed -->
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="py-12 fade-in-section">
-            <h2 class="section-title text-4xl font-bold">Education</h2>
-            <div class="space-y-6">
-                <!-- BINUS University --> 
-                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
-                    <div class="flex justify-between items-start">
-                        <h3 class="text-xl font-semibold text-indigo-600">SMA Santo Thomas Aquino</h3>
-                        <span class="text-sm text-gray-500 font-mono bg-indigo-100 px-3 py-1 rounded-full">2020 - 2023</span>
-                    </div>
-                    <p class="text-gray-700 mt-1 font-medium">Science Stream (Ilmu Pengetahuan Alam)</p>
-                </div>
-                
-                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
-                    <div class="flex justify-between items-start">
-                        <h3 class="text-xl font-semibold text-indigo-600">Bina Nusantara University</h3>
-                        <span class="text-sm text-gray-500 font-mono bg-indigo-100 px-3 py-1 rounded-full">2023 - Present</span>
-                    </div>
-                    <p class="text-gray-700 mt-1 font-medium">Undergraduate Computer Science Major</p>
-                    <p class="text-gray-500 text-sm mt-2 flex items-center"><i data-lucide="cpu" class="w-4 h-4 mr-2 text-indigo-400"></i>C O M P U T E R S C I E N C E</p>
-                </div>
-                <!-- SMA Santo Thomas Aquino -->
-               
-            </div>
-        </section>
-
-        <!-- Experience Section (Non-Project/Organizational) -->
-        <section id="experience" class="py-12 fade-in-section">
-            <h2 class="section-title text-4xl font-bold">Organizational & Mentorship Experience</h2>
-            <div class="space-y-6">
-                
-                <!-- Panitia Malam Keakraban KMBD 2024 (Perkab) -->
-                 <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-xl font-semibold text-indigo-600">KMBD 2024 Active Member & Get-Together Night Committee (Perkab)</h3>
-                        <span class="text-sm text-gray-500 font-mono">Nov 2023 - Nov 2024 · 1 Year</span>
-                    </div>
-                    <p class="text-gray-700 font-medium flex items-center"><i data-lucide="users" class="w-4 h-4 mr-2 text-indigo-400"></i>Keluarga Mahasiswa Buddhis Dhammavaddhana (Hybrid)</p>
-                    <p class="text-gray-600 text-sm mt-2">
-                        I served as a committee member for the 2024 KMBD get-together night, collaborating with new and long-standing members. The event involved staying in a villa with participants, focusing on networking and strengthening the brotherhood among fellow KMBD members.
-                    </p>
-                </div>
-                
-                <!-- Scholarship Mentor -->
-                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-xl font-semibold text-indigo-600">Scholarship Mentor</h3>
-                        <span class="text-sm text-gray-500 font-mono">2024 - 2025 · 6 months</span>
-                    </div>
-                    <p class="text-gray-700 font-medium flex items-center"><i data-lucide="building-2" class="w-4 h-4 mr-2 text-indigo-400"></i>BINUS University · Contract (Hybrid)</p>
-                    <p class="text-gray-600 text-sm mt-2">
-                        As a Scholarship Mentor in the Computer Science department during my 4th semester, I guided two mentees. We studied and discussed course materials such as Agile Software Development, Software Engineering, and Code Reengineering in a hybrid setting. My goal was to deepen their understanding, motivate them, and foster a positive learning environment.
-                    </p>
-                </div>    
-
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="py-12 fade-in-section">
-            <h2 class="section-title text-4xl font-bold">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- 1. Project Card Template (Other Projects) - GITHUB ONLY -->
-                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200 bg-indigo-50"
-                     data-project-title="Other Projects & Repositories"
-                     data-project-id="other-github"
-                     data-project-description="Check out my GitHub profile for other ongoing projects, personal coding challenges, and older repositories not listed here."
-                     data-project-links='[{"label": "Franklyn'+"'s"+` GitHub Profile", "url": "https://github.com/FranklynThio"}]'>
-                    
-                    <!-- COVER IMAGE SECTION: Default Link -->
-                    <a href="https://github.com/FranklynThio" target="_blank" class="image-placeholder cursor-pointer bg-indigo-200 text-indigo-700 h-full flex flex-col justify-center p-6 text-center hover:bg-indigo-300 transition duration-300">
-                        <i data-lucide="github" class="w-12 h-12 mx-auto mb-3"></i>
-                        <span class="text-xl font-bold">View More on GitHub</span>
-                        <p class="text-sm mt-2 text-indigo-600">Click to visit my full repository list.</p>
-                    </a>
-
-                    <div class="p-6 hidden">
-                        <!-- Content hidden as primary action is the GitHub link on the image-placeholder -->
-                    </div>
-                </div>
-
-                <!-- 2. Project Card Template (Aria) - With Gallery -->
-                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
-                     data-project-title="Aria Music Platform"
-                     data-project-id="aria"
-                     data-project-description="Music platform that allows users to manually separate and adjust instruments and vocals. (Group Project as Backend Developer)"
-                     data-project-links='[{"label": "GitHub Repository", "url": "https://github.com/ouewen/Aria"}]'>
-                    
-                    <!-- COVER IMAGE SECTION: Aria_1.png -->
-                    <img src="assets/aria_1.png" alt="Aria Music Platform Cover" class="project-cover rounded-t-xl" 
-                         onclick="openProjectModal(this)"
-                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=Aria+Cover';" 
-                    />
-
-                    <div class="p-6">
-                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2025</span>
-                        <h3 class="text-xl font-bold text-indigo-700 mb-2">Aria Music Platform</h3>
-                        <p class="text-gray-600 text-sm mb-4">Music platform that allows users to manually separate and adjust instruments and vocals.</p>
-                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
-                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Group Project</span>
-                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Backend Developer</span>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-2" id="links-Aria Music Platform">
-                            <a href="https://github.com/ouewen/Aria" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="github" class="w-4 h-4 mr-1"></i> GitHub Repository
-                            </a>
-                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. Project Card Template (DiamondCut Motors UI/UX Figma) - With Gallery -->
-                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
-                     data-project-title="DiamondCut Motors Showroom (UI/UX)"
-                     data-project-id="diamondcut-ui"
-                     data-project-description="Website design for a Sports Car Showroom, offering various luxury sports cars. (Individual Project as UI/UX Developer - Figma Prototype)"
-                     data-project-links='[{"label": "Figma Prototype", "url": "https://www.figma.com/proto/YcXCH8KgSIzqKk7w3AWXy?node-id=1-3&starting-point-node-id=1%3A3&t=BVFoOwOQt0UMmmvS-1"}]'>
-
-                    <!-- COVER IMAGE SECTION: DiamondCut_Motors_Showroom1.png -->
-                    <img src="assets/DiamondCut_Motors_Showroom1.png" alt="DiamondCut Motors UI/UX Cover" class="project-cover rounded-t-xl" 
-                         onclick="openProjectModal(this)"
-                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=DiamondCut+UI+Cover';" 
-                    />
-                    
-                    <div class="p-6">
-                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2024</span>
-                        <h3 class="text-xl font-bold text-indigo-700 mb-2">DiamondCut Motors Showroom (UI/UX)</h3>
-                        <p class="text-gray-600 text-sm mb-4">Website design for a Sports Car Showroom, offering various luxury sports cars.</p>
-                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
-                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Individual Project</span>
-                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">UI/UX Developer</span>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-2" id="links-DiamondCut Motors Showroom">
-                            <a href="https://www.figma.com/proto/YcXCH8KgSIzqKk7w3AWXy?node-id=1-3&starting-point-node-id=1%3A3&t=BVFoOwOQt0UMmmvS-1" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="figma" class="w-4 h-4 mr-1"></i> Figma Prototype
-                            </a>
-                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 4. Project Card (DiamondCut Motors Implementation CSS/JS) - With Gallery -->
-                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
-                     data-project-title="DiamondCut Motors (Implementation)"
-                     data-project-id="diamondcut-dev"
-                     data-project-description="Implementation of the showroom design using HTML, CSS, and JavaScript, focusing on Front-End development and interaction."
-                     data-project-links='[{"label": "GitHub Profile", "url": "https://github.com/FranklynThio/DiamondCutMotors"}]'>
-
-                    <!-- COVER IMAGE SECTION: DiamondCutCSS1.png -->
-                    <img src="assets/DiamondCutCSS1.png" alt="DiamondCut Motors Implementation Cover" class="project-cover rounded-t-xl" 
-                         onclick="openProjectModal(this)"
-                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=DiamondCut+Dev+Cover';" 
-                    />
-
-                    <div class="p-6">
-                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2024</span>
-                        <h3 class="text-xl font-bold text-indigo-700 mb-2">DiamondCut Motors (Implementation)</h3>
-                        <p class="text-gray-600 text-sm mb-4">Implementation of the car showroom website using web technologies (CSS/JS).</p>
-                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
-                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Individual Project</span>
-                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Front-End Development</span>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-2" id="links-DiamondCut Motors Implementation">
-                            <a href="https://github.com/FranklynThio/DiamondCutMotors" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="github" class="w-4 h-4 mr-1"></i> View on GitHub
-                            </a>
-                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. Project Card Template (FitTrack Calorie Tracker) - With Gallery -->
-                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
-                     data-project-title="FitTrack Calorie Tracker (AI)"
-                     data-project-id="fittrack"
-                     data-project-description="AI function that calculates food calories based on a database, allowing users to upload photos. (Group Project as Backend Developer)"
-                     data-project-links='[{"label": "Documentation", "url": "https://mini-brass-c1b.notion.site/FitTrack-Calorie-Tracker-1604ad8a189e8020845ef0182ee47fe5"}]'>
-                    
-                    <!-- COVER IMAGE SECTION: Fittrack.png -->
-                    <img src="assets/Fittrack.png" alt="FitTrack Calorie Tracker Cover" class="project-cover rounded-t-xl" 
-                         onclick="openProjectModal(this)"
-                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=FitTrack+Cover';" 
-                    />
-
-                    <div class="p-6">
-                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2024</span>
-                        <h3 class="text-xl font-bold text-indigo-700 mb-2">FitTrack Calorie Tracker (AI)</h3>
-                        <p class="text-gray-600 text-sm mb-4">AI function that calculates food calories based on a database, allowing users to upload photos.</p>
-                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
-                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Group Project</span>
-                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Backend Developer</span>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-2" id="links-FitTrack Calorie Tracker (AI)">
-                            <a href="https://mini-brass-c1b.notion.site/FitTrack-Calorie-Tracker-1604ad8a189e8020845ef0182ee47fe5" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Documentation
-                            </a>
-                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. Project Card Template (File Processing) - With Gallery -->
-                <div class="project-card bg-white rounded-xl shadow-xl overflow-hidden hover-card transition duration-300 transform hover:scale-[1.03] border border-gray-200"
-                     data-project-title="File Data Processing"
-                     data-project-id="fileprocessing"
-                     data-project-description="A project focused on reading data from a file and implementing its processing logic in code. (Group Project as Backend Developer)"
-                     data-project-links='[{"label": "GitHub Profile", "url": "https://github.com/FranklynThio/FileProcessing"}]'>
-                    
-                    <!-- COVER IMAGE SECTION: FileProcessing.png -->
-                    <img src="assets/FileProcessing.png" alt="File Data Processing Cover" class="project-cover rounded-t-xl" 
-                         onclick="openProjectModal(this)"
-                         onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=File+Processing+Cover';" 
-                    />
-
-                    <div class="p-6">
-                        <span class="text-xs font-mono bg-indigo-500 text-white px-3 py-1 rounded-full inline-block mb-4">2023</span>
-                        <h3 class="text-xl font-bold text-indigo-700 mb-2">File Data Processing</h3>
-                        <p class="text-gray-600 text-sm mb-4">A project focused on reading data from a file and implementing its processing logic in code.</p>
-                        <div class="flex flex-wrap gap-2 text-xs font-semibold mt-4">
-                            <span class="bg-gray-200 text-gray-800 px-3 py-1 rounded-full">Group Project</span>
-                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Backend Developer</span>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-2" id="links-File Data Processing">
-                            <a href="https://github.com/FranklynThio/FileProcessing" target="_blank" class="text-indigo-600 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="github" class="w-4 h-4 mr-1"></i> View on GitHub
-                            </a>
-                            <button onclick="openProjectModal(this.closest('.project-card').querySelector('img'))" class="text-gray-500 hover:text-indigo-800 transition duration-200 text-sm font-medium flex items-center">
-                                <i data-lucide="image" class="w-4 h-4 mr-1"></i> View Gallery
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center text-gray-500 mt-10 text-sm italic">
-                Click the image or "View Gallery" to see the project detail screenshots!
-            </p>
-        </section>
-
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-12 fade-in-section">
-            <h2 class="section-title text-4xl font-bold">Skills</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Technical Skills -->
-                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
-                    <h3 class="text-xl font-semibold text-indigo-600 mb-4 flex items-center"><i data-lucide="code" class="w-5 h-5 mr-2 text-indigo-500"></i> Technical Skills (Hard Skills)</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="Front-End Development">Front-End Development</span>
-                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="UI/UX Design">UI/UX Design</span>
-                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="Mobile Development">Mobile Development</span>
-                        <span class="skill-tag bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-indigo-200" data-skill="Database Management">Database Management</span>
-                    </div>
-                </div>
-                <!-- Soft Skills -->
-                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover-card transition duration-300">
-                    <h3 class="text-xl font-semibold text-indigo-600 mb-4 flex items-center"><i data-lucide="users" class="w-5 h-5 mr-2 text-indigo-500"></i> Soft Skills</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Team Collaboration">Team Collaboration</span>
-                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Communication">Communication</span>
-                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Time Management">Time Management</span>
-                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Leadership">Leadership</span>
-                        <span class="skill-tag bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full font-medium shadow-sm transition hover:bg-gray-300" data-skill="Adaptability & Continuous Learning">Adaptability & Continuous Learning</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white/80 mt-16 py-6 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm">
-            <p>&copy; 2025 Franklyn Thioatmadjaya. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button id="scroll-to-top" onclick="scrollToTop()">
-        <i data-lucide="arrow-up" class="w-6 h-6"></i>
-    </button>
-
-    <!-- Simple Modal for General Placeholders (e.g., CV Download) -->
-    <div id="message-box" class="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center p-4 hidden z-[99]" onclick="closeMessageBox()">
-        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full border border-indigo-500/50" onclick="event.stopPropagation()">
-            <h4 class="text-xl font-bold text-indigo-600 mb-3" id="message-title"></h4>
-            <p class="text-gray-700 mb-4" id="message-body"></p>
-            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition" onclick="closeMessageBox()">Close</button>
-        </div>
+<!-- ============ TOPBAR (mobile / tablet) ============ -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="row">
+      <a class="brand" href="#top">FRANKLYN<em>.</em>THIO</a>
+      <nav>
+        <a href="#about">Profile</a>
+        <a href="#experience">Experience</a>
+        <a href="#work">Work</a>
+        <a href="#github">GitHub</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false"><i></i><i></i><i></i></button>
     </div>
-
-    <!-- Modal for Project Gallery/Detail -->
-    <div id="project-modal" class="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center p-4 hidden z-[100]" onclick="closeProjectModal()">
-        <div class="bg-white p-6 rounded-xl shadow-2xl w-full project-modal-content" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-start mb-4 border-b pb-2">
-                <h4 class="text-2xl font-bold text-indigo-600" id="modal-project-title">Project Title</h4>
-                <button onclick="closeProjectModal()" class="text-gray-400 hover:text-gray-600 transition"><i data-lucide="x" class="w-6 h-6"></i></button>
-            </div>
-            
-            <p id="modal-project-description" class="text-gray-700 mb-4 text-sm"></p>
-            
-            <!-- Image Gallery Container -->
-            <div id="modal-image-gallery" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-                <!-- Image tags will be dynamically injected here -->
-            </div>
-
-            <!-- Links -->
-            <div id="modal-project-links" class="mt-4 flex flex-wrap gap-3">
-                <!-- Project links will be dynamically injected here -->
-            </div>
-            
-            <button class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition" onclick="closeProjectModal()">Close</button>
-        </div>
+  </div>
+  <div class="drawer" id="drawer">
+    <div class="wrap">
+      <a href="#about"><b>02</b> Profile</a>
+      <a href="#experience"><b>03</b> Experience</a>
+      <a href="#education"><b>04</b> Education</a>
+      <a href="#work"><b>05</b> Work</a>
+      <a href="#github"><b>06</b> GitHub</a>
+      <a href="#skills"><b>07</b> Skills</a>
+      <a href="#contact"><b>08</b> Contact</a>
     </div>
+  </div>
+</header>
 
+<main id="top">
 
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-        
-        // Asset mapping for projects that have images
-        const projectAssetMap = {
-            "aria": ["aria_1.png", "aria_2.png", "aria_3.png", "aria_4.png"],
-            "diamondcut-ui": ["DiamondCut_Motors_Showroom1.png", "DiamondCut_Motors_Showroom2.png", "DiamondCut_Motors_Showroom3.png", "DiamondCut_Motors_Showroom4.png"],
-            "diamondcut-dev": ["DiamondCutCSS1.png", "DiamondCutCSS2.png", "DiamondCutCSS3.png", "DiamondCutCSS4.png"],
-            "fileprocessing": ["FileProcessing.png"],
-            "fittrack": ["Fittrack.png"],
-            "other-github": [], // No images for this card
-        };
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="status lift d1"><span class="pulse"></span> Interning at Qpro Sukses Mandiri</span>
 
-        // --- General Placeholders (CV Download) ---
+          <h1>
+            <span class="ln"><span>FRANKLYN</span></span>
+            <span class="ln"><span class="dim">THIOATMADJAYA</span></span>
+          </h1>
 
-        const messageBox = document.getElementById('message-box');
-        const messageTitle = document.getElementById('message-title');
-        const messageBody = document.getElementById('message-body');
+          <p class="role lift d2" id="role" aria-live="off">Full-Stack Application Developer<span class="caret"></span></p>
 
-        // IMPORTANT: The provided link is for a Google Drive *folder*. 
-        // For direct download, it is highly recommended to get the *direct public share link* of the CV file itself (ending in /view or /export).
-        const cvLink = "https://drive.google.com/drive/folders/1YSf_YpbS1-Te14nhOTDL47huNklMWyr8";
+          <p class="hero-copy lift d3">
+            I build hospital information systems in C# and .NET — from legacy .NET Framework 4 modules
+            that have to keep running, to new services on .NET 9. Computer Science at BINUS on one side,
+            production healthcare software on the other.
+          </p>
 
-        function showDownloadPlaceholder() {
-            // Instead of showing a placeholder, open the provided CV link in a new tab
-            window.open(cvLink, '_blank');
-        }
+          <div class="ecg lift d4">
+            <div class="ecg-head">
+              <span>Status <b>&#9679; Available for collaboration</b></span>
+              <span>Karawaci, Tangerang &middot; GMT+7</span>
+            </div>
+            <svg viewBox="0 0 600 74" preserveAspectRatio="none" aria-hidden="true">
+              <path class="trace" d="M0,37 L60,37 L72,37 L80,20 L88,54 L96,10 L104,52 L112,37 L150,37 L165,37 L172,30 L180,44 L188,37 L240,37 L252,37 L260,20 L268,54 L276,10 L284,52 L292,37 L330,37 L345,37 L352,30 L360,44 L368,37 L420,37 L432,37 L440,20 L448,54 L456,10 L464,52 L472,37 L510,37 L525,37 L532,30 L540,44 L548,37 L600,37" />
+            </svg>
+          </div>
 
-        function closeMessageBox() {
-            messageBox.classList.add('hidden');
-        }
+          <div class="cta-row lift d5">
+            <a class="btn primary mag" href="assets/cv-franklyn-thioatmadjaya.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Curriculum Vitae
+            </a>
+            <a class="btn mag" href="#work">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              Selected Work
+            </a>
+            <a class="btn mag" href="https://github.com/FranklynThio" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+              GitHub
+            </a>
+          </div>
 
-        // --- Project Modal Functions (Gallery) ---
-        const projectModal = document.getElementById('project-modal');
-        const modalTitle = document.getElementById('modal-project-title');
-        const modalDesc = document.getElementById('modal-project-description');
-        const modalLinks = document.getElementById('modal-project-links');
-        const modalGallery = document.getElementById('modal-image-gallery');
+          <div class="contact-row lift d5">
+            <a class="chip" href="https://wa.me/6281218198477" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.6.3-.5v-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.8-.4ZM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.5-4.6-1.3l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+              0812-1819-8477
+            </a>
+            <a class="chip" href="mailto:thiofranklyn@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+              thiofranklyn@gmail.com
+            </a>
+            <a class="chip" href="https://www.linkedin.com/in/franklyn-thioatmadjaya-a80206385/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.3 18V10H5.8v8h2.5Zm-1.2-9.1a1.4 1.4 0 1 0 0-2.9 1.4 1.4 0 0 0 0 2.9ZM18.2 18v-4.5c0-2.4-1.3-3.6-3-3.6-1.4 0-2 .8-2.4 1.3V10h-2.5v8h2.5v-4.4c0-1.2.6-1.9 1.5-1.9s1.4.6 1.4 1.9V18h2.5Z"/></svg>
+              LinkedIn
+            </a>
+            <span class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Karawaci, Tangerang
+            </span>
+          </div>
+        </div>
 
-        function openProjectModal(element) {
-            // Find the closest project-card element
-            const card = element.closest('.project-card');
-            
-            const title = card.getAttribute('data-project-title');
-            const projectId = card.getAttribute('data-project-id');
-            const description = card.getAttribute('data-project-description');
-            const linksJson = card.getAttribute('data-project-links');
+        <div class="portrait lift d4">
+          <div class="frame">
+            <span class="corner tl"></span>
+            <span class="corner br"></span>
+            <img src="assets/profile.jpg" alt="Portrait of Franklyn Thioatmadjaya" onerror="this.onerror=null;this.src='https://placehold.co/640x720/0e141f/0fe0b6?text=FT';" />
+            <span class="scan"></span>
+            <span class="tag"><b>App Developer</b><span>BINUS &rsquo;27</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            modalTitle.textContent = title;
-            modalDesc.textContent = description;
+  <!-- ============ STATS ============ -->
+  <div class="wrap">
+    <div class="stats" id="stats">
+      <div class="stat"><div class="n"><span data-count="12">12</span></div><div class="k">Month internship</div></div>
+      <div class="stat"><div class="n"><span data-count="6">6</span></div><div class="k">Public repositories</div></div>
+      <div class="stat"><div class="n"><span data-count="5">5</span><em>+</em></div><div class="k">Projects shipped</div></div>
+      <div class="stat"><div class="n"><span data-count="3">3</span><em>yr</em></div><div class="k">Computer science</div></div>
+    </div>
+  </div>
 
-            // Handle Images (dynamic injection)
-            modalGallery.innerHTML = '';
-            const assets = projectAssetMap[projectId];
+  <!-- ============ ABOUT ============ -->
+  <section class="sec" id="about">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">02 &mdash; Profile</span>
+        <h2>Student by enrollment,<br />application developer by practice.</h2>
+      </div>
 
-            if (assets && assets.length > 0) {
-                assets.forEach((assetName, index) => {
-                    // Create the image container element
-                    const imageContainer = document.createElement('div');
-                    imageContainer.className = 'w-full';
+      <div class="about-grid">
+        <div class="about-body rv">
+          <p>
+            I am an Informatics student at <strong>Bina Nusantara University</strong> (expected 2027), currently
+            spending a full year inside <strong>Qpro Sukses Mandiri</strong> as a full-stack Application Developer
+            on hospital software.
+          </p>
+          <p>
+            Healthcare systems taught me something a campus project never could: code has to survive. A registration
+            or billing module written years ago on <strong>.NET Framework 4</strong> is still serving a real clinic
+            tomorrow morning, while the new service beside it runs on <strong>.NET 9</strong>. Most of my work lives in
+            that seam — reading unfamiliar legacy code, extending it without breaking the flow nurses and admin staff
+            depend on, and building the new parts properly.
+          </p>
+          <p>
+            Before that, my ground was interface work — UI/UX design, front-end, and mobile. I still carry it:
+            the fastest backend in the world is useless if the person at the front desk cannot find the button.
+          </p>
+        </div>
 
-                    // Use the correct relative path: assets/ plus the file name
-                    const assetPath = `assets/${assetName}`;
-                    
-                    imageContainer.innerHTML = `
-                        <!-- Menggunakan path relatif 'assets/nama_file.png' -->
-                        <img src="${assetPath}" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/800x450/e0e7ff/6366f1?text=Image+Not+Found+(${assetName})';"
-                             alt="${title} Screenshot ${index + 1} (${assetName})" 
-                             class="modal-image">
-                        <!-- Menghapus tampilan nama file di bawah gambar:
-                        <p class="text-center text-gray-500 italic text-sm mt-1 mb-4">Image File: <b>${assetName}</b></p>
-                        -->
-                    `;
-                    modalGallery.appendChild(imageContainer);
-                });
-            } else {
-                modalGallery.innerHTML = `
-                    <p class="text-center text-gray-500 italic p-4 border border-dashed border-gray-400 rounded-lg">
-                        <i data-lucide="info" class="w-5 h-5 inline-block mr-2"></i>
-                        No image gallery available for this project. Please check the links below for details!
-                    </p>
-                `;
-            }
+        <div class="focus-list rv">
+          <div class="it">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4z"/><path d="M2 20h20"/><path d="M12 8v4M10 10h4"/></svg>
+            <div><h4>Healthcare domain</h4><p>Hospital information system modules, in production, with real clinical users.</p></div>
+          </div>
+          <div class="it">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <div><h4>Full stack, both eras</h4><p>.NET Framework 4.x maintenance alongside greenfield .NET 9 work.</p></div>
+          </div>
+          <div class="it">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+            <div><h4>Data first</h4><p>Relational modelling and SQL queries behind every screen I ship.</p></div>
+          </div>
+          <div class="it">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            <div><h4>Interface literacy</h4><p>Figma prototyping and front-end implementation, carried over from design work.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // Handle Links (inside modal)
-            modalLinks.innerHTML = '';
-            try {
-                const links = JSON.parse(linksJson);
-                if (links.length > 0) {
-                    links.forEach(link => {
-                        const linkEl = document.createElement('a');
-                        linkEl.href = link.url;
-                        linkEl.target = '_blank';
-                        // Use a different style for links inside the modal for clarity
-                        linkEl.className = 'bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg font-medium transition flex items-center text-sm';
-                        
-                        let icon = 'link';
-                        if (link.label.toLowerCase().includes('github')) icon = 'github';
-                        else if (link.label.toLowerCase().includes('figma')) icon = 'figma';
-                        else if (link.label.toLowerCase().includes('documentation')) icon = 'book-open';
-                        else if (link.label.toLowerCase().includes('profile')) icon = 'user';
-                        
-                        linkEl.innerHTML = `<i data-lucide="${icon}" class="w-4 h-4 mr-2"></i> ${link.label}`;
-                        modalLinks.appendChild(linkEl);
-                    });
-                } else {
-                     modalLinks.innerHTML = '<span class="text-gray-500 italic text-sm">No external links available for this project.</span>';
-                }
-                lucide.createIcons(); 
-            } catch (e) {
-                console.error("Error parsing project links:", e);
-                modalLinks.innerHTML = '<span class="text-red-500 text-sm">Error loading links.</span>';
-            }
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="sec" id="experience">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">03 &mdash; Experience</span>
+        <h2>Where the work happened</h2>
+        <p class="lede">Listed newest first. The live entry is the one with a pulse on it.</p>
+      </div>
 
-            projectModal.classList.remove('hidden');
-        }
+      <div class="tl">
+        <article class="tl-item now rv">
+          <span class="tl-node"><i></i></span>
+          <div class="card">
+            <div class="card-top">
+              <div>
+                <h3>Application Developer &mdash; Full Stack</h3>
+                <div class="org">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M10 9h4M12 7v4"/></svg>
+                  Qpro Sukses Mandiri &middot; Internship
+                </div>
+              </div>
+              <span class="when live">Feb 2026 &ndash; Jan 2027 &middot; Current</span>
+            </div>
+            <p class="desc">
+              Full-stack developer on hospital projects, working across the whole client estate — from long-lived
+              modules on .NET Framework 4 to services built on .NET 9.
+            </p>
+            <ul class="bullets">
+              <li>Build and maintain hospital information system modules used by clinical and administrative staff.</li>
+              <li>Work across multiple runtimes in one estate: legacy .NET Framework 4.x systems and current .NET 9 services.</li>
+              <li>Handle both sides of a feature — database and server logic through to the screens users actually operate.</li>
+              <li>Read into unfamiliar codebases quickly and extend them without disrupting live hospital operations.</li>
+            </ul>
+            <div class="stack">
+              <span class="tech hot">C#</span>
+              <span class="tech hot">.NET Framework 4.x</span>
+              <span class="tech hot">.NET 9</span>
+              <span class="tech">ASP.NET</span>
+              <span class="tech">SQL Server</span>
+              <span class="tech">REST APIs</span>
+              <span class="tech">JavaScript</span>
+              <span class="tech">Hospital Information Systems</span>
+            </div>
+          </div>
+        </article>
 
-        function closeProjectModal() {
-            projectModal.classList.add('hidden');
-        }
+        <article class="tl-item rv">
+          <span class="tl-node"><i></i></span>
+          <div class="card">
+            <div class="card-top">
+              <div>
+                <h3>Scholarship Mentor</h3>
+                <div class="org">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
+                  BINUS University &middot; Contract, Hybrid
+                </div>
+              </div>
+              <span class="when">2024 &ndash; 2025 &middot; 6 months</span>
+            </div>
+            <p class="desc">
+              Mentored two Computer Science mentees during my fourth semester, working through course material together
+              and keeping them moving when the material got heavy.
+            </p>
+            <div class="stack">
+              <span class="tech">Agile Software Development</span>
+              <span class="tech">Software Engineering</span>
+              <span class="tech">Code Reengineering</span>
+              <span class="tech">Mentoring</span>
+            </div>
+          </div>
+        </article>
 
+        <article class="tl-item rv">
+          <span class="tl-node"><i></i></span>
+          <div class="card">
+            <div class="card-top">
+              <div>
+                <h3>Active Member &amp; Get-Together Night Committee</h3>
+                <div class="org">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg>
+                  KMBD &mdash; Keluarga Mahasiswa Buddhis Dhammavaddhana
+                </div>
+              </div>
+              <span class="when">Nov 2023 &ndash; Nov 2024 &middot; 1 year</span>
+            </div>
+            <p class="desc">
+              Ran the 2024 get-together night with the committee — a multi-day villa event for new and long-standing
+              members, built around networking and keeping the community tight.
+            </p>
+            <div class="stack">
+              <span class="tech">Event Organisation</span>
+              <span class="tech">Team Collaboration</span>
+              <span class="tech">Community Building</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-        // --- Navigation and Animation Functions ---
+  <!-- ============ EDUCATION ============ -->
+  <section class="sec" id="education">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">04 &mdash; Education</span>
+        <h2>Education</h2>
+      </div>
+      <div class="edu-grid">
+        <article class="card edu rv">
+          <span class="glyph">CS</span>
+          <div class="card-top">
+            <div>
+              <h3>Bina Nusantara University</h3>
+              <div class="org">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
+                Undergraduate &middot; Computer Science
+              </div>
+            </div>
+            <span class="when">2023 &ndash; 2027</span>
+          </div>
+          <p class="desc">Informatics, streamed toward software engineering. Expected graduation 2027.</p>
+          <div class="stack">
+            <span class="tech">Software Engineering</span>
+            <span class="tech">Algorithms</span>
+            <span class="tech">Databases</span>
+            <span class="tech">Human-Computer Interaction</span>
+          </div>
+        </article>
 
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-            
-            const btn = document.getElementById('mobile-menu-btn');
-            const icon = menu.classList.contains('hidden') ? 'menu' : 'x';
-            btn.innerHTML = `<i data-lucide="${icon}" class="w-6 h-6"></i>`;
-            lucide.createIcons();
-        }
-        
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                const menu = document.getElementById('mobile-menu');
-                if (!menu.classList.contains('hidden')) {
-                    toggleMenu();
-                }
-            }
+        <article class="card edu rv">
+          <span class="glyph">IPA</span>
+          <div class="card-top">
+            <div>
+              <h3>SMA Santo Thomas Aquino</h3>
+              <div class="org">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+                Science stream &middot; Ilmu Pengetahuan Alam
+              </div>
+            </div>
+            <span class="when">2020 &ndash; 2023</span>
+          </div>
+          <p class="desc">Natural sciences track — mathematics, physics, chemistry and biology.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section class="sec" id="work">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">05 &mdash; Selected work</span>
+        <h2>Projects</h2>
+        <p class="lede">Coursework, team builds and personal projects. Click any cover to open the screenshots.</p>
+      </div>
+
+      <div class="proj-grid">
+
+        <article class="proj rv" data-id="aria" data-title="Aria Music Platform"
+          data-desc="A music platform that lets listeners separate and rebalance the individual stems of a track — vocals, drums, bass, instruments — by hand. Built as a group project where I owned the backend."
+          data-links='[{"label":"GitHub Repository","url":"https://github.com/ouewen/Aria","icon":"github"}]'>
+          <button class="shot" type="button" aria-label="Open Aria Music Platform gallery">
+            <span class="yr">2025</span>
+            <img src="assets/aria_1.png" alt="Aria music platform interface" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x500/0e141f/0fe0b6?text=Aria';" />
+            <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>4 shots</span>
+          </button>
+          <div class="body">
+            <span class="role-line">Group project &middot; Backend developer</span>
+            <h3>Aria Music Platform</h3>
+            <p>Stem separation and manual instrument balancing, so a listener can mute the vocals or push the bass on any track.</p>
+            <div class="foot">
+              <a class="mini" href="https://github.com/ouewen/Aria" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+                Repository
+              </a>
+              <span class="mini">Python</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj rv" data-id="fittrack" data-title="FitTrack Calorie Tracker"
+          data-desc="A calorie tracker with an AI layer: the user photographs a meal, the model identifies what is on the plate, and the calorie total is resolved against a nutrition database. Group project, backend role."
+          data-links='[{"label":"Documentation","url":"https://mini-brass-c1b.notion.site/FitTrack-Calorie-Tracker-1604ad8a189e8020845ef0182ee47fe5","icon":"book"},{"label":"GitHub Repository","url":"https://github.com/FranklynThio/FitTrack","icon":"github"}]'>
+          <button class="shot" type="button" aria-label="Open FitTrack gallery">
+            <span class="yr">2024</span>
+            <img src="assets/Fittrack.png" alt="FitTrack calorie tracker" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x500/0e141f/0fe0b6?text=FitTrack';" />
+            <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>1 shot</span>
+          </button>
+          <div class="body">
+            <span class="role-line">Group project &middot; Backend developer</span>
+            <h3>FitTrack Calorie Tracker</h3>
+            <p>Photograph a meal, get its calories back — image recognition resolved against a nutrition database.</p>
+            <div class="foot">
+              <a class="mini" href="https://mini-brass-c1b.notion.site/FitTrack-Calorie-Tracker-1604ad8a189e8020845ef0182ee47fe5" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+                Documentation
+              </a>
+              <span class="mini">Jupyter</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj rv" data-id="diamondcut-ui" data-title="DiamondCut Motors — UI/UX"
+          data-desc="An end-to-end interface design for a luxury sports car showroom: browsing, model detail, configuration and enquiry, prototyped and wired up in Figma. Individual project."
+          data-links='[{"label":"Figma Prototype","url":"https://www.figma.com/proto/YcXCH8KgSIzqKk7w3AWXy?node-id=1-3&starting-point-node-id=1%3A3&t=BVFoOwOQt0UMmmvS-1","icon":"figma"}]'>
+          <button class="shot" type="button" aria-label="Open DiamondCut Motors UI/UX gallery">
+            <span class="yr">2024</span>
+            <img src="assets/DiamondCut_Motors_Showroom1.png" alt="DiamondCut Motors showroom design" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x500/0e141f/0fe0b6?text=DiamondCut';" />
+            <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>4 shots</span>
+          </button>
+          <div class="body">
+            <span class="role-line">Individual project &middot; UI/UX designer</span>
+            <h3>DiamondCut Motors &mdash; UI/UX</h3>
+            <p>Interface design for a luxury sports car showroom, prototyped as a clickable Figma flow.</p>
+            <div class="foot">
+              <a class="mini" href="https://www.figma.com/proto/YcXCH8KgSIzqKk7w3AWXy?node-id=1-3&starting-point-node-id=1%3A3&t=BVFoOwOQt0UMmmvS-1" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5Z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2Z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0Z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0Z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5Z"/></svg>
+                Figma prototype
+              </a>
+              <span class="mini">Figma</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj rv" data-id="diamondcut-dev" data-title="DiamondCut Motors — Implementation"
+          data-desc="The showroom design taken from Figma into a working site with HTML, CSS and JavaScript — layout, responsive behaviour and the interaction details the prototype only implied."
+          data-links='[{"label":"GitHub Repository","url":"https://github.com/FranklynThio/DiamondCutMotors","icon":"github"}]'>
+          <button class="shot" type="button" aria-label="Open DiamondCut Motors implementation gallery">
+            <span class="yr">2024</span>
+            <img src="assets/DiamondCutCSS1.png" alt="DiamondCut Motors implemented in HTML and CSS" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x500/0e141f/0fe0b6?text=DiamondCut+Dev';" />
+            <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>4 shots</span>
+          </button>
+          <div class="body">
+            <span class="role-line">Individual project &middot; Front-end developer</span>
+            <h3>DiamondCut Motors &mdash; Implementation</h3>
+            <p>The same showroom, built for real: semantic markup, responsive layout and hand-written interaction.</p>
+            <div class="foot">
+              <a class="mini" href="https://github.com/FranklynThio/DiamondCutMotors" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+                Repository
+              </a>
+              <span class="mini">HTML / CSS / JS</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj rv" data-id="fileprocessing" data-title="File Data Processing"
+          data-desc="A C++ exercise in reading structured data out of files and implementing the processing logic around it — parsing, validation and transformation without leaning on a framework."
+          data-links='[{"label":"GitHub Repository","url":"https://github.com/FranklynThio/FileProcessing","icon":"github"}]'>
+          <button class="shot" type="button" aria-label="Open File Data Processing gallery">
+            <span class="yr">2023</span>
+            <img src="assets/FileProcessing.png" alt="File data processing project" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x500/0e141f/0fe0b6?text=File+Processing';" />
+            <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>1 shot</span>
+          </button>
+          <div class="body">
+            <span class="role-line">Group project &middot; Backend developer</span>
+            <h3>File Data Processing</h3>
+            <p>Reading structured data from files and implementing the parsing and processing logic in C++.</p>
+            <div class="foot">
+              <a class="mini" href="https://github.com/FranklynThio/FileProcessing" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+                Repository
+              </a>
+              <span class="mini">C++</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj rv" data-id="more" data-title="Everything else"
+          data-desc="Smaller repositories, coursework and experiments live on the GitHub profile."
+          data-links='[{"label":"GitHub Profile","url":"https://github.com/FranklynThio","icon":"github"}]'>
+          <a class="shot" href="https://github.com/FranklynThio" target="_blank" rel="noopener" style="display:grid;place-items:center;background:linear-gradient(140deg,var(--panel-2),var(--ink-2));cursor:pointer;">
+            <span class="yr">Live</span>
+            <span style="display:flex;flex-direction:column;align-items:center;gap:.7rem;color:var(--txt-2);position:relative;z-index:3;">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:42px;height:42px;color:var(--teal);"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+              <span style="font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;">@FranklynThio</span>
+            </span>
+          </a>
+          <div class="body">
+            <span class="role-line">Open source</span>
+            <h3>Everything else</h3>
+            <p>Coursework, experiments and older repositories — the full list is pulled live in the next section.</p>
+            <div class="foot">
+              <a class="mini" href="#github">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                See the feed
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GITHUB ============ -->
+  <section class="sec" id="github">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">06 &mdash; Open source</span>
+        <div class="gh-head">
+          <h2>Straight from GitHub</h2>
+          <span class="gh-state" id="ghState"><span class="dot"></span><span id="ghStateText">Snapshot &middot; 13 Sep 2026</span></span>
+        </div>
+        <p class="lede">Public repositories on <a href="https://github.com/FranklynThio" target="_blank" rel="noopener" style="color:var(--teal);">@FranklynThio</a>, newest activity first. Where the network allows it, this list refreshes itself from the GitHub API on load.</p>
+      </div>
+
+      <div class="repos" id="repos">
+        <a class="repo" href="https://github.com/FranklynThio/CobaUploadporto" target="_blank" rel="noopener">
+          <span class="rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>CobaUploadporto</span>
+          <span class="rd">Earlier iteration of this portfolio site.</span>
+          <span class="rm"><span><i class="lang" style="background:#e34c26"></i>HTML</span><span>Updated Oct 2025</span></span>
+        </a>
+        <a class="repo" href="https://github.com/FranklynThio/FitTrack" target="_blank" rel="noopener">
+          <span class="rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>FitTrack</span>
+          <span class="rd">FitTrack calorie tracker — AI meal recognition.</span>
+          <span class="rm"><span><i class="lang" style="background:#da5b0b"></i>Jupyter Notebook</span><span>Updated Oct 2025</span></span>
+        </a>
+        <a class="repo" href="https://github.com/FranklynThio/FileProcessing" target="_blank" rel="noopener">
+          <span class="rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>FileProcessing</span>
+          <span class="rd">Reading data from a file and implementing its processing logic in code.</span>
+          <span class="rm"><span><i class="lang" style="background:#f34b7d"></i>C++</span><span>Updated Oct 2025</span></span>
+        </a>
+        <a class="repo" href="https://github.com/FranklynThio/DiamondCutMotors" target="_blank" rel="noopener">
+          <span class="rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>DiamondCutMotors</span>
+          <span class="rd">Website design for a sports car showroom, offering various luxury sports cars.</span>
+          <span class="rm"><span><i class="lang" style="background:#e34c26"></i>HTML</span><span>Updated Oct 2025</span></span>
+        </a>
+        <a class="repo" href="https://github.com/FranklynThio/JAwelsDiamonds" target="_blank" rel="noopener">
+          <span class="rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>JAwelsDiamonds</span>
+          <span class="rd">Jewellery storefront concept.</span>
+          <span class="rm"><span><i class="lang"></i>Repository</span><span>Updated May 2025</span></span>
+        </a>
+        <a class="repo" href="https://github.com/FranklynThio/cr2025-ld01" target="_blank" rel="noopener">
+          <span class="rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>cr2025-ld01</span>
+          <span class="rd">Code Reengineering class, LD01, 2025.</span>
+          <span class="rm"><span><i class="lang"></i>Fork</span><span>Updated Feb 2025</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="sec" id="skills">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">07 &mdash; Capability</span>
+        <h2>What I work with</h2>
+      </div>
+
+      <div class="skill-grid">
+        <div class="skill-col rv">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Backend &amp; .NET</h3>
+          <ul>
+            <li>C#</li>
+            <li>.NET Framework 4.x</li>
+            <li>.NET 9</li>
+            <li>ASP.NET</li>
+            <li>REST API design</li>
+            <li>C++</li>
+            <li>Python</li>
+          </ul>
+        </div>
+        <div class="skill-col rv">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Front-end</h3>
+          <ul>
+            <li>HTML &amp; CSS</li>
+            <li>JavaScript</li>
+            <li>Responsive layout</li>
+            <li>Mobile development</li>
+            <li>Accessibility basics</li>
+          </ul>
+        </div>
+        <div class="skill-col rv">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>Data &amp; tooling</h3>
+          <ul>
+            <li>SQL Server</li>
+            <li>Relational modelling</li>
+            <li>Git &amp; GitHub</li>
+            <li>Figma</li>
+            <li>Agile delivery</li>
+          </ul>
+        </div>
+        <div class="skill-col rv">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg>Working style</h3>
+          <ul>
+            <li>Team collaboration</li>
+            <li>Communication</li>
+            <li>Time management</li>
+            <li>Mentoring</li>
+            <li>Open to feedback</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="track" id="track"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <div class="contact-card rv">
+        <span class="eyebrow">08 &mdash; Contact</span>
+        <h2>Let&rsquo;s build something<br />that has to stay up.</h2>
+        <p>Open to collaboration, freelance front-end and .NET work, and conversations about healthcare software. Fastest reply is WhatsApp.</p>
+        <div class="cta-row">
+          <a class="btn primary mag" href="mailto:thiofranklyn@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            Send an email
+          </a>
+          <a class="btn mag" href="https://wa.me/6281218198477" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.6.3-.5v-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4l-.8-.4ZM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.5-4.6-1.3l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="contact-row">
+          <a class="chip" href="mailto:franklyn.thioatamadjaya@binus.ac.id">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            franklyn.thioatamadjaya@binus.ac.id
+          </a>
+          <a class="chip" href="https://www.linkedin.com/in/franklyn-thioatmadjaya-a80206385/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.3 18V10H5.8v8h2.5Zm-1.2-9.1a1.4 1.4 0 1 0 0-2.9 1.4 1.4 0 0 0 0 2.9ZM18.2 18v-4.5c0-2.4-1.3-3.6-3-3.6-1.4 0-2 .8-2.4 1.3V10h-2.5v8h2.5v-4.4c0-1.2.6-1.9 1.5-1.9s1.4.6 1.4 1.9V18h2.5Z"/></svg>
+            LinkedIn
+          </a>
+          <a class="chip" href="https://github.com/FranklynThio" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+            @FranklynThio
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>&copy; 2026 Franklyn Thioatmadjaya</span>
+      <span>Built by hand &middot; No framework</span>
+      <a href="#top">Back to top &uarr;</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ GALLERY MODAL ============ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="veil" data-close></div>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div>
+        <h3 id="mTitle">Project</h3>
+        <p id="mDesc"></p>
+      </div>
+      <button class="x" data-close aria-label="Close gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body" id="mBody"></div>
+    <div class="sheet-foot" id="mFoot"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) document.documentElement.classList.add("js-anim");
+
+  /* ---------- load sequence ---------- */
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { document.body.classList.add("ready"); });
+  });
+
+  /* ---------- rotating role line ---------- */
+  var roles = [
+    "Full-Stack Application Developer",
+    "Hospital Information Systems",
+    ".NET Framework 4 → .NET 9",
+    "Computer Science @ BINUS"
+  ];
+  var roleEl = document.getElementById("role");
+  if (roleEl && !reduce) {
+    var caret = '<span class="caret"></span>';
+    var ri = 0, ci = 0, deleting = false;
+    var tick = function () {
+      var full = roles[ri];
+      ci += deleting ? -1 : 1;
+      var shown = full.slice(0, ci);
+      roleEl.innerHTML = "<b>" + shown.replace(/</g, "&lt;") + "</b>" + caret;
+      var wait = deleting ? 34 : 58;
+      if (!deleting && ci === full.length) { deleting = true; wait = 2100; }
+      else if (deleting && ci === 0) { deleting = false; ri = (ri + 1) % roles.length; wait = 320; }
+      setTimeout(tick, wait);
+    };
+    setTimeout(tick, 1500);
+  }
+
+  /* ---------- scroll progress + rail state ---------- */
+  var bar = document.getElementById("progress");
+  var dots = Array.prototype.slice.call(document.querySelectorAll(".rail-dot"));
+  var secs = dots.map(function (d) { return document.getElementById(d.dataset.sec); });
+  var ticking = false;
+
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+    var mark = window.scrollY + window.innerHeight * 0.34, active = 0;
+    for (var i = 0; i < secs.length; i++) {
+      if (secs[i] && secs[i].offsetTop <= mark) active = i;
+    }
+    dots.forEach(function (d, i) { d.classList.toggle("on", i === active); });
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  /* ---------- mobile drawer ---------- */
+  var menuBtn = document.getElementById("menuBtn");
+  if (menuBtn) {
+    menuBtn.addEventListener("click", function () {
+      var open = document.body.classList.toggle("nav-open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.querySelectorAll("#drawer a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        document.body.classList.remove("nav-open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  var rv = document.querySelectorAll(".rv");
+  if (reduce || !("IntersectionObserver" in window)) {
+    rv.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px 5% 0px" });
+    rv.forEach(function (el) { io.observe(el); });
+    // safety net: nothing on this page is allowed to stay invisible
+    setTimeout(function () { rv.forEach(function (el) { el.classList.add("in"); }); }, 1600);
+  }
+
+  /* ---------- counters ---------- */
+  var counted = false;
+  var statsEl = document.getElementById("stats");
+  function runCounters() {
+    if (counted) return;
+    counted = true;
+    document.querySelectorAll("[data-count]").forEach(function (el) {
+      var target = parseInt(el.dataset.count, 10), t0 = null;
+      if (reduce) { el.textContent = target; return; }
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / 1100, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if (statsEl && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (e, o) {
+      if (e[0].isIntersecting) { runCounters(); o.disconnect(); }
+    }, { threshold: 0.4 }).observe(statsEl);
+  } else { runCounters(); }
+
+  /* ---------- cursor spotlight + magnetic buttons ---------- */
+  var spot = document.getElementById("spot");
+  if (spot && window.matchMedia("(pointer:fine)").matches && !reduce) {
+    document.body.classList.add("has-pointer");
+    var sx = 0, sy = 0, cx = 0, cy = 0;
+    window.addEventListener("mousemove", function (e) { sx = e.clientX; sy = e.clientY; }, { passive: true });
+    (function loop() {
+      cx += (sx - cx) * 0.09; cy += (sy - cy) * 0.09;
+      spot.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+      requestAnimationFrame(loop);
+    })();
+
+    document.querySelectorAll(".mag").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var dx = (e.clientX - r.left - r.width / 2) * 0.22;
+        var dy = (e.clientY - r.top - r.height / 2) * 0.34;
+        el.style.transform = "translate(" + dx + "px," + dy + "px)";
+      });
+      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    });
+
+    document.querySelectorAll(".proj").forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        var rx = ((e.clientY - r.top) / r.height - 0.5) * -5;
+        var ry = ((e.clientX - r.left) / r.width - 0.5) * 5;
+        card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-4px)";
+      });
+      card.addEventListener("mouseleave", function () { card.style.transform = ""; });
+    });
+  }
+
+  /* ---------- ambient motes ---------- */
+  var cv = document.getElementById("motes");
+  if (cv && !reduce) {
+    var ctx = cv.getContext("2d"), motes = [], W = 0, H = 0;
+    function size() {
+      W = cv.width = window.innerWidth; H = cv.height = window.innerHeight;
+      var n = Math.min(58, Math.round(W / 26));
+      motes = [];
+      for (var i = 0; i < n; i++) {
+        motes.push({
+          x: Math.random() * W, y: Math.random() * H,
+          r: Math.random() * 1.5 + 0.4,
+          vx: (Math.random() - 0.5) * 0.16, vy: (Math.random() - 0.5) * 0.16,
+          a: Math.random() * 0.4 + 0.1
         });
+      }
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < motes.length; i++) {
+        var m = motes[i];
+        m.x += m.vx; m.y += m.vy;
+        if (m.x < -8) m.x = W + 8; if (m.x > W + 8) m.x = -8;
+        if (m.y < -8) m.y = H + 8; if (m.y > H + 8) m.y = -8;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(15,224,182," + m.a + ")";
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    size(); draw();
+    window.addEventListener("resize", size);
+  }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.fade-in-section');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.2
-            };
+  /* ---------- marquee ---------- */
+  var track = document.getElementById("track");
+  if (track) {
+    var items = ["C#", "<b>.NET 9</b>", ".NET Framework 4", "ASP.NET", "SQL Server", "<b>Hospital Systems</b>",
+                 "JavaScript", "HTML / CSS", "C++", "Python", "<b>Figma</b>", "Git", "REST APIs", "Agile"];
+    var html = items.map(function (s) { return "<span>" + s + "</span>"; }).join("");
+    track.innerHTML = html + html;
+  }
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+  /* ---------- project gallery ---------- */
+  var galleries = {
+    "aria": ["aria_1.png", "aria_2.png", "aria_3.png", "aria_4.png"],
+    "diamondcut-ui": ["DiamondCut_Motors_Showroom1.png", "DiamondCut_Motors_Showroom2.png", "DiamondCut_Motors_Showroom3.png", "DiamondCut_Motors_Showroom4.png"],
+    "diamondcut-dev": ["DiamondCutCSS1.png", "DiamondCutCSS2.png", "DiamondCutCSS3.png", "DiamondCutCSS4.png"],
+    "fittrack": ["Fittrack.png"],
+    "fileprocessing": ["FileProcessing.png"],
+    "more": []
+  };
+  var icons = {
+    github: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>',
+    figma: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5Z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2Z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0Z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0Z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5Z"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>'
+  };
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
+  var modal = document.getElementById("modal");
+  var mTitle = document.getElementById("mTitle");
+  var mDesc = document.getElementById("mDesc");
+  var mBody = document.getElementById("mBody");
+  var mFoot = document.getElementById("mFoot");
+  var lastFocus = null;
 
-        const scrollToTopButton = document.getElementById('scroll-to-top');
+  function openGallery(card) {
+    var id = card.dataset.id;
+    var shots = galleries[id] || [];
+    lastFocus = document.activeElement;
+    mTitle.textContent = card.dataset.title;
+    mDesc.textContent = card.dataset.desc;
 
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                scrollToTopButton.style.display = "block";
-                scrollToTopButton.style.opacity = "1";
-            } else {
-                scrollToTopButton.style.opacity = "0";
-                setTimeout(() => {
-                    if (scrollToTopButton.style.opacity === "0") {
-                        scrollToTopButton.style.display = "none";
-                    }
-                }, 300);
-            }
-        };
+    mBody.innerHTML = shots.length
+      ? shots.map(function (f, i) {
+          return '<img src="assets/' + f + '" alt="' + card.dataset.title + ' screenshot ' + (i + 1) +
+                 '" loading="lazy" onerror="this.onerror=null;this.src=\'https://placehold.co/1200x700/0e141f/0fe0b6?text=Image+unavailable\';" />';
+        }).join("")
+      : '<p class="empty">No screenshots for this entry &mdash; follow the links below.</p>';
 
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-    </script>
+    var links = [];
+    try { links = JSON.parse(card.dataset.links || "[]"); } catch (err) { links = []; }
+    mFoot.innerHTML = links.map(function (l) {
+      return '<a class="mini" href="' + l.url + '" target="_blank" rel="noopener">' + (icons[l.icon] || "") + " " + l.label + "</a>";
+    }).join("");
+
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+    mBody.scrollTop = 0;
+    var closeBtn = modal.querySelector(".x");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeGallery() {
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll(".proj").forEach(function (card) {
+    var shot = card.querySelector("button.shot");
+    if (shot) shot.addEventListener("click", function () { openGallery(card); });
+  });
+  modal.querySelectorAll("[data-close]").forEach(function (el) {
+    el.addEventListener("click", closeGallery);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("open")) closeGallery();
+  });
+
+  /* ---------- live GitHub feed (upgrades the embedded snapshot) ---------- */
+  var LANG_COLOR = {
+    "HTML": "#e34c26", "CSS": "#563d7c", "JavaScript": "#f1e05a", "TypeScript": "#3178c6",
+    "C#": "#178600", "C++": "#f34b7d", "C": "#555555", "Python": "#3572a5",
+    "Jupyter Notebook": "#da5b0b", "Java": "#b07219", "Dart": "#00b4ab", "PHP": "#4f5d95",
+    "Kotlin": "#a97bff", "Shell": "#89e051", "Vue": "#41b883", "Go": "#00add8"
+  };
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var folder = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>';
+  var star = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:11px;height:11px"><path d="m12 3 2.6 5.6 6 .8-4.4 4.2 1.1 6.1L12 16.9 6.7 19.7l1.1-6.1L3.4 9.4l6-.8L12 3Z"/></svg>';
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  fetch("https://api.github.com/users/FranklynThio/repos?per_page=100&sort=updated")
+    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function (repos) {
+      if (!Array.isArray(repos) || !repos.length) return;
+      var list = document.getElementById("repos");
+      list.innerHTML = repos.slice(0, 8).map(function (r) {
+        var d = new Date(r.updated_at);
+        var when = "Updated " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+        var lang = r.language || (r.fork ? "Fork" : "Repository");
+        var dot = LANG_COLOR[r.language] || "#64768e";
+        var desc = r.description || (r.fork ? "Forked repository." : "No description provided.");
+        return '<a class="repo" href="' + esc(r.html_url) + '" target="_blank" rel="noopener">' +
+                 '<span class="rn">' + folder + esc(r.name) + "</span>" +
+                 '<span class="rd">' + esc(desc) + "</span>" +
+                 '<span class="rm">' +
+                   '<span><i class="lang" style="background:' + dot + '"></i>' + esc(lang) + "</span>" +
+                   (r.stargazers_count ? "<span>" + star + r.stargazers_count + "</span>" : "") +
+                   "<span>" + when + "</span>" +
+                 "</span></a>";
+      }).join("");
+
+      var state = document.getElementById("ghState");
+      var text = document.getElementById("ghStateText");
+      if (state && text) {
+        state.classList.add("ok");
+        text.textContent = "Live · " + repos.length + " public repositories";
+      }
+    })
+    .catch(function () { /* keep the embedded snapshot */ });
+
+  /* ---------- rail clock ---------- */
+  var clock = document.getElementById("railclock");
+  function tickClock() {
+    if (!clock) return;
+    var now = new Date();
+    var jkt = new Date(now.getTime() + (now.getTimezoneOffset() + 420) * 60000);
+    var hh = String(jkt.getHours()).padStart(2, "0");
+    var mm = String(jkt.getMinutes()).padStart(2, "0");
+    clock.textContent = "JKT " + hh + ":" + mm;
+  }
+  tickClock();
+  setInterval(tickClock, 30000);
+})();
+</script>
 </body>
 </html>
-
