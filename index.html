@@ -214,11 +214,21 @@ body.nav-open .drawer{ grid-template-rows:1fr; }
 .status .pulse::after{ content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--teal); animation:ping 2s var(--ease) infinite; }
 @keyframes ping{ 0%{ transform:scale(.6); opacity:1; } 100%{ transform:scale(1.7); opacity:0; } }
 
+/* The longest line — THIOATMADJAYA, 13 characters — sets the ceiling.
+   Sizing off the viewport clipped it against the narrower text column, so
+   the type scales with the column itself where container queries exist. */
+.hero-text{ min-width:0; }
 .hero h1{
-  font-size:clamp(2.5rem,7.2vw,5rem); font-weight:800; letter-spacing:-.035em; line-height:.96;
+  font-size:clamp(1.9rem,5.4vw,3.6rem); font-weight:800; letter-spacing:-.035em; line-height:.96;
   margin-block:1.1rem .35rem;
 }
-.hero h1 .ln{ display:block; overflow:hidden; padding-bottom:.08em; margin-bottom:-.04em; }
+@supports (container-type: inline-size){
+  .hero-text{ container-type:inline-size; }
+  .hero h1{ font-size:clamp(1.9rem,10.5cqw,4.3rem); }
+}
+.hero h1 .ln{ display:block; overflow:hidden; padding-bottom:.14em; margin-bottom:-.1em; }
+/* once the intro has played, nothing is allowed to clip this name again */
+body.hero-done .hero h1 .ln{ overflow:visible; }
 .hero h1 .ln > span{ display:block; }
 .hero h1 .dim{ color:var(--txt-3); }
 
@@ -572,7 +582,7 @@ html.js-anim body.ready .hero .d5{ transition-delay:.66s; }
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <div>
+        <div class="hero-text">
           <span class="status lift d1"><span class="pulse"></span> Interning at Qpro Sukses Mandiri</span>
 
           <h1>
@@ -1182,6 +1192,8 @@ html.js-anim body.ready .hero .d5{ transition-delay:.66s; }
   requestAnimationFrame(function () {
     requestAnimationFrame(function () { document.body.classList.add("ready"); });
   });
+  // release the clipping mask the name slides out of, once it has arrived
+  setTimeout(function () { document.body.classList.add("hero-done"); }, reduce ? 0 : 1400);
 
   /* ---------- rotating role line ---------- */
   var roles = [
